@@ -186,6 +186,56 @@ footer ul{margin:0;padding-left:18px;display:grid;gap:3px;columns:2;column-gap:2
 .lbl.dim{fill:var(--muted);font-weight:500}
 @media (prefers-reduced-motion:no-preference){.pulse{animation:pulse 1.6s ease-out infinite}}
 @keyframes pulse{0%{opacity:.75}100%{opacity:0}}
+
+/* photos */
+figure.ph{margin:0;position:relative;border-radius:12px;overflow:hidden;background:var(--soft);display:grid}
+figure.ph img{width:100%;height:100%;object-fit:cover;display:block;grid-area:1/1}
+figure.ph figcaption{grid-area:1/1;align-self:end;justify-self:start;margin:8px;font-size:.72rem;background:rgba(10,20,22,.62);color:#fff;padding:3px 7px;border-radius:5px}
+figure.ph figcaption a{color:#fff}
+figure.ph .fb{display:none;grid-area:1/1;place-content:center;text-align:center;gap:6px;padding:18px;background:repeating-linear-gradient(135deg,var(--soft) 0 14px,var(--card) 14px 28px)}
+figure.ph .fb b{font:800 1.15rem/1.15 var(--f-display)}
+figure.ph .fb span{font-size:.8rem;color:var(--muted)}
+figure.ph.nophoto img,figure.ph.nophoto figcaption{display:none}
+figure.ph.nophoto .fb{display:grid}
+.dayph{aspect-ratio:16/8;max-height:260px}
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;display:grid}
+.tl li{display:grid;grid-template-columns:86px 12px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px dashed var(--rule);align-items:start}
+.tl li:first-child{border-top:0}
+.tl .tm{font:500 .76rem/1.4 var(--f-mono);color:var(--muted);padding-top:2px}
+.tl .dot{width:10px;height:10px;border-radius:50%;margin-top:5px}
+.tl .tt{font-weight:700;font-size:.93rem}
+.tl .td{font-size:.86rem;color:var(--muted);display:block;margin-top:1px}
+@media (max-width:480px){.tl li{grid-template-columns:62px 10px minmax(0,1fr);gap:8px}}
+.tags{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.74rem;color:var(--muted)}
+.tags span{display:inline-flex;align-items:center;gap:5px}.tags i{width:8px;height:8px;border-radius:50%}
+.planb{font-size:.86rem;background:var(--soft);border-radius:10px;padding:10px 12px}
+.planb b{font-weight:700}
+.stop{appearance:none;border:0;cursor:pointer}
+.stop:hover{outline:1.5px solid var(--muted)}
+/* guide */
+.gtabs{display:flex;gap:6px;flex-wrap:wrap}
+.gtab{appearance:none;border:1.5px solid var(--rule);background:var(--card);border-radius:999px;padding:7px 12px;font-weight:600;font-size:.86rem;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.gtab i{width:9px;height:9px;border-radius:50%}
+.gtab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.gpanel{display:grid;gap:16px;background:var(--card);border:1px solid var(--rule);border-radius:16px;padding:18px}
+.ghead{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:820px){.ghead{grid-template-columns:minmax(0,1fr)}}
+.gphotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.gphotos figure{aspect-ratio:4/3}
+.gintro{display:grid;gap:10px;align-content:start}
+.gintro h3{font-size:1.6rem;font-weight:800}
+.gintro .feel{font-size:.88rem;border-left:3px solid var(--accent);padding-left:10px}
+.gintro .acts{display:flex;flex-wrap:wrap;gap:8px}
+.gintro .acts a,.gintro .acts button{appearance:none;font-size:.82rem;font-weight:600;border:1.5px solid var(--rule);background:transparent;border-radius:999px;padding:6px 11px;cursor:pointer;text-decoration:none}
+.gsecs{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.gsec{display:grid;gap:6px;align-content:start}
+.gsec h4{margin:0;font:500 .72rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gsec ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.gsec li{display:grid;gap:1px;font-size:.88rem}
+.gsec li b{font-weight:700}
+.gsec li .m{font:500 .72rem/1.35 var(--f-mono);color:var(--muted)}
+.photonote{font-size:.8rem;color:var(--muted)}
 </style>
 
 <div class="wrap">
@@ -253,10 +303,12 @@ footer ul{margin:0;padding-left:18px;display:grid;gap:3px;columns:2;column-gap:2
 
   <section aria-labelledby="pl-h">
     <div class="sec-head">
-      <h2 id="pl-h">What each place is like in late January</h2>
-      <p class="muted">Central figures are 12 years of weather history for your exact dates. North and South figures are published January climate averages (the weather-history service is blocked from this session). Tap a card to find it on the map.</p>
+      <h2 id="pl-h">What each place offers</h2>
+      <p class="muted">Sights, classes, food, shopping and nightlife for every stop, with opening hours, prices and Google ratings (stars, reviews). Central figures come from the trip data; North and South from 2026 guides and Reddit. Weather for Central is 12 years of history for your dates; North and South use published January averages.</p>
+      <p class="photonote" id="photonote">Photos are freely licensed images from Wikimedia Commons. They show when this file is opened in a normal browser; secure previews block outside images, so a photo link appears instead.</p>
     </div>
-    <div class="places" id="places"></div>
+    <div class="gtabs" id="gtabs" role="tablist" aria-label="Places"></div>
+    <div class="gpanel" id="gpanel"></div>
   </section>
 
   <section aria-labelledby="m-h">
@@ -336,6 +388,7 @@ footer ul{margin:0;padding-left:18px;display:grid;gap:3px;columns:2;column-gap:2
 (function(){
 const GEO=__GEO__;
 const BUDGET=__BUDGET__;
+__CONTENT__
 const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
 
 /* ---------- places [lat,lng,name,region] ---------- */
@@ -550,6 +603,15 @@ const lg=document.getElementById('legend');
 [['road','Car, van or Grab'],['train','Heritage train'],['fly','Flight inside Vietnam'],['intl','Flight to/from India'],['trip','Day trip, back the same day']].forEach(([m,t])=>{const s=document.createElement('span');const M=MODE[m];s.innerHTML=`<svg width="26" height="8" aria-hidden="true"><line x1="1" y1="4" x2="25" y2="4" stroke="${M.c}" stroke-width="${M.w+.4}" stroke-dasharray="${M.d}" stroke-linecap="round"/></svg>${t}`;lg.appendChild(s)});
 {const s=document.createElement('span');s.innerHTML='<svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="var(--central)"/></svg>Number = nights there';lg.appendChild(s)}
 
+/* ---------- photos & tags ---------- */
+const TAGC={see:'var(--north)',eat:'var(--bad)',shop:'var(--central)',night:'var(--trip)',move:'var(--muted)',relax:'var(--south)',class:'var(--accent)',ride:'var(--train)',tip:'var(--muted)'};
+const TAGN={see:'See',ride:'Ride',class:'Class',eat:'Eat',shop:'Shop',relax:'Relax',night:'Night out',move:'Travel'};
+const fileURL=f=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(f)+'?width=1000';
+const pageURL=f=>'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f);
+const mapsURL=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+', Vietnam');
+function photoHTML(k,cls){const[f,cap]=PHOTO[k];return`<figure class="ph ${cls||''}"><img src="${fileURL(f)}" alt="${cap}" loading="lazy" referrerpolicy="no-referrer"><figcaption>${cap} · <a href="${pageURL(f)}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption><div class="fb"><b>${cap}</b><span>Photo can't load in this view.</span><a href="${mapsURL(cap)}" target="_blank" rel="noopener">See photos on Google Maps ↗</a></div></figure>`}
+function wirePhotos(root){root.querySelectorAll('figure.ph img').forEach(img=>{const fail=()=>img.closest('figure').classList.add('nophoto');img.addEventListener('error',fail);if(img.complete&&img.naturalWidth===0&&img.src)fail()})}
+
 /* ---------- panel ---------- */
 const mixesEl=document.getElementById('mixes'),versEl=document.getElementById('vers');
 ['C','N','S'].forEach(m=>{const b=document.createElement('button');b.type='button';b.className='mix';b.dataset.m=m;b.style.setProperty('--mixc',MIX[m].color);
@@ -566,7 +628,7 @@ function render(){
   const sm=document.getElementById('summary');
   const nights=cur.stays.reduce((a,s)=>a+s[1],0);
   sm.innerHTML=`<div style="display:grid;gap:6px"><span class="eyebrow" style="color:${MIX[cur.mix].color}">${MIX[cur.mix].name} · ${cur.id.toUpperCase()}</span><h3>${cur.name}</h3>
-   <div class="routeline">${cur.stays.map(([k,n],i)=>`${i?'<span class="arr">→</span>':''}<span class="stop"><i style="background:${regionColor(P[k][3])}"></i>${P[k][2]} · ${n} night${n>1?'s':''}</span>`).join('')}</div></div>
+   <div class="routeline">${cur.stays.map(([k,n],i)=>`${i?'<span class="arr">→</span>':''}<button type="button" class="stop" data-k="${k}" title="What ${P[k][2]} offers"><i style="background:${regionColor(P[k][3])}"></i>${P[k][2]} · ${n} night${n>1?'s':''} ›</button>`).join('')}</div></div>
    <div class="stats">
     <div class="stat"><span class="sv">${fmt(cur.b.total)}</span><span class="sl">total for two</span></div>
     <div class="stat"><span class="sv" style="color:${cur.b.buffer<10000?'var(--bad)':'inherit'}">${fmt(cur.b.buffer)}</span><span class="sl">left of ₹2 lakh</span></div>
@@ -575,17 +637,24 @@ function render(){
    </div>
    <div class="feats">${FEATS.map(([k,t])=>`<span class="feat ${cur.f[k]?'':'no'}">${cur.f[k]?'<span class="y">✓</span>':''}${t}</span>`).join('')}<span class="feat"><span class="y">✓</span>${cur.thrill}</span></div>
    <div class="pc"><div class="g"><h4>Why pick it</h4><ul>${cur.pros.map(p=>`<li>${p}</li>`).join('')}</ul></div><div class="b"><h4>What it costs you</h4><ul>${cur.cons.map(p=>`<li>${p}</li>`).join('')}</ul></div></div>`;
+  sm.querySelectorAll('.stop').forEach(b=>b.addEventListener('click',()=>{openGuide(b.dataset.k==='lan'?'lan':b.dataset.k,true)}));
   renderDay();renderMoney();renderCompareSel();
 }
 function renderDay(){
   const dots=document.getElementById('dots');dots.innerHTML='';
   cur.days.forEach((d,i)=>{const b=document.createElement('button');b.type='button';b.className='dotb';b.textContent=i;b.setAttribute('aria-label','Day '+i+', '+d.date);if(i===day)b.setAttribute('aria-current','step');b.addEventListener('click',()=>{stop();day=i;renderDay();drawTop()});dots.appendChild(b)});
   const d=cur.days[day];
-  document.getElementById('daycard').innerHTML=`<div class="dd"><span class="dn">Day ${day}</span><span class="dw">${d.date} Jan${day===0?' · leaving India':''}</span></div>
-   <div class="dw">Sleep: <b style="color:var(--ink)">${d.sleep}</b></div><div class="dt">${d.t}</div><div class="dx">${d.x}</div>
+  const keys=DAYKEYS[cur.id]||[];const L=DAY[keys[day]]||{s:[]};
+  document.getElementById('daycard').innerHTML=`${L.ph?photoHTML(L.ph,'dayph'):''}
+   <div class="dd"><span class="dn">Day ${day}</span><span class="dw">${d.date} Jan${day===0?' · leaving India':''}</span></div>
+   <div class="dw">Sleep: <b style="color:var(--ink)">${d.sleep}</b></div><div class="dt">${d.t}</div>
+   ${L.s.length?`<ol class="tl">${L.s.map(([tm,tag,tt,td])=>`<li><span class="tm">${tm||''}</span><i class="dot" style="background:${TAGC[tag]||'var(--muted)'}"></i><span><span class="tt">${tt}</span>${td?`<span class="td">${td}</span>`:''}</span></li>`).join('')}</ol>`:`<div class="dx">${d.x}</div>`}
+   ${L.alt?`<div class="planb"><b>Plan B:</b> ${L.alt}</div>`:''}
    ${d.legs.length?`<div class="moves">${d.legs.map(l=>`<span class="move"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="${GLYPH[l[2]]}" fill="none" stroke="${MODE[l[2]].c}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>${MNAME[l[2]]}: ${P[l[0]][2]} → ${P[l[1]][2]}</span>`).join('')}</div>`:''}
    ${d.c.length?`<div class="chips">${d.c.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`:''}
-   ${d.w?`<div class="why">${d.w}</div>`:''}`;
+   ${d.w?`<div class="why">${d.w}</div>`:''}
+   <div class="tags">${Object.entries(TAGN).map(([k,n])=>`<span><i style="background:${TAGC[k]}"></i>${n}</span>`).join('')}</div>`;
+  wirePhotos(document.getElementById('daycard'));
   document.getElementById('prev').disabled=day===0;document.getElementById('next').disabled=day===cur.days.length-1;
 }
 function go(n){day=Math.max(0,Math.min(cur.days.length-1,n));renderDay();drawTop()}
@@ -627,24 +696,24 @@ function renderCompare(){
 }
 function renderCompareSel(){renderCompare()}
 
-/* ---------- places ---------- */
-const PL=[
- ['han','Hanoi','14–20 °C','About 20 mm of rain in January (travel guides). Street food, beer street, Train Street cafés, a capital-city night out.','"The air quality in Hanoi was horrible" in Jan–Feb (r/Vietnam_Tourism).'],
- ['sap','Sapa','≈6–13 °C','Frost or snow possible at night. Fansipan cable car, alpine coaster, glass bridge, homestays. 5.5–6 h by van from Hanoi.','"If there is fog you literally can\'t see 5 meters" (r/hanoi).'],
- ['lan','Lan Ha / Ha Long Bay','14–20 °C','January is the driest month; morning mist is common. Overnight balcony cruise ₹35,000 for two (quote).','"Go to Lan Ha bay instead! Same scenery way less boats" (r/Vietnam_Tourism).'],
- ['nbh','Ninh Binh','Cool, ≈15–20 °C','Rowing boats through karst at Trang An, the 500-step Mua Cave viewpoint, cycling. Activities ₹1,167 each (actual).','"Ninh Bình is a must" (r/hanoi).'],
- ['hue','Hue','24 / 18 °C','Heavy rain on 17% of days (12-year data). Imperial City, royal tombs, the best food of the trip.','"So underrated", 643 upvotes (r/VietNam).'],
- ['hoi','Hoi An','24 / 19 °C','At least one dry evening in every 2-night window tested, all 12 years. Lantern boats, cooking and lantern classes.','Magical at dawn and after 21:00; crowded by day.'],
- ['dan','Da Nang','24 / 19 °C','Good beach day on 22–23 Jan in 8 of 12 years, on 26–27 Jan in 4. An Thuong bars, sea-view rooms from ₹10,346.','An Thuong is "very walkable and very safe" (r/DaNang).'],
- ['ban','Ba Na Hills','15 / 10 °C at the top','Clouds tend to sit for whole weeks. Ticket 1,000,000 VND; coaster 100,000 a ride or 250,000 for 3.','"The cable car ride up is awesome. The rest of it is just tacky" (r/VietNam).'],
- ['pqc','Phu Quoc','26–31 °C','Dry season, about 5 rainy days in January (guides). Hon Thom sea cable car 850,000 VND, VinWonders 950,000, Kiss of the Sea show 950,000.','Split verdict: "best trip of my life" (796 upvotes) vs "overdeveloped" (r/VietNam).'],
- ['sgn','Saigon','23–33 °C','About 2 rainy days in January (guides). Nonstop VietJet from Bengaluru. Rooftop bars, Cu Chi tunnels, Mekong day trips.','"The city was very beautiful, lots of nice cafes and restaurants" (r/VietNam).']
-];
-const pg=document.getElementById('places');
-PL.forEach(([k,n,tmp,txt,q])=>{const inC=CO.filter(c=>c.stays.some(s=>s[0]===k)||c.days.some(d=>d.legs.some(l=>l[1]===k&&l[2]==='trip'))).map(c=>c.id.toUpperCase());
-  const b=document.createElement('button');b.type='button';b.className='place';
-  b.innerHTML=`<span class="ph"><span><span class="rg" style="color:${regionColor(P[k][3])}">${P[k][3]==='N'?'North':P[k][3]==='C'?'Central':'South'}</span><h3>${n}</h3></span><span class="tmp">${tmp}</span></span><p>${txt}</p><p class="q">${q}</p><span class="in">In versions: ${inC.join(', ')||'—'}</span>`;
-  b.addEventListener('click',()=>{focusPlace=k;zr.setAttribute('aria-pressed',false);za.setAttribute('aria-pressed',false);document.getElementById('plan-h').scrollIntoView({behavior:reduce?'auto':'smooth'});zoomTo(target())});pg.appendChild(b)});
+/* ---------- place guide ---------- */
+const GORDER=['han','sap','lan','nbh','hue','hoi','dan','ban','pqc','sgn'];
+let gk='dan';
+const gtabs=document.getElementById('gtabs');
+GORDER.forEach(k=>{const b=document.createElement('button');b.type='button';b.className='gtab';b.setAttribute('role','tab');b.dataset.k=k;b.innerHTML=`<i style="background:${regionColor(P[k][3])}"></i>${GUIDE[k].name.replace(' (Ho Chi Minh City)','')}`;b.addEventListener('click',()=>openGuide(k));gtabs.appendChild(b)});
+function openGuide(k,scroll){if(!GUIDE[k])return;gk=k;
+  gtabs.querySelectorAll('.gtab').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===k));
+  const g=GUIDE[k];const inC=CO.filter(c=>c.stays.some(s=>s[0]===k)||c.days.some(d=>d.legs.some(l=>l[1]===k))).map(c=>c.id.toUpperCase());
+  const gp=document.getElementById('gpanel');
+  gp.innerHTML=`<div class="ghead"><div class="gphotos">${g.ph.map(x=>photoHTML(x)).join('')}</div>
+    <div class="gintro"><span class="eyebrow" style="color:${regionColor(P[k][3])}">${P[k][3]==='N'?'North':P[k][3]==='C'?'Central':'South'} · in versions ${inC.join(', ')||'—'}</span><h3>${g.name}</h3><p>${g.tag}</p><p class="feel"><b>Late January:</b> ${g.feel}</p>
+    <div class="acts"><button type="button" id="gmap">Show on the map</button><a href="${mapsURL(g.name)}" target="_blank" rel="noopener">Google Maps ↗</a></div></div></div>
+    <div class="gsecs">${g.secs.map(([h,items])=>`<div class="gsec"><h4>${h}</h4><ul>${items.map(([n,d,m])=>`<li><b>${n}</b>${d?`<span>${d}</span>`:''}${m?`<span class="m">${m}</span>`:''}</li>`).join('')}</ul></div>`).join('')}</div>`;
+  wirePhotos(gp);
+  gp.querySelector('#gmap').addEventListener('click',()=>{focusPlace=k;zr.setAttribute('aria-pressed',false);za.setAttribute('aria-pressed',false);document.getElementById('plan-h').scrollIntoView({behavior:reduce?'auto':'smooth'});zoomTo(target())});
+  if(scroll)document.getElementById('pl-h').scrollIntoView({behavior:reduce?'auto':'smooth'});
+}
+openGuide('dan');
 
 /* ---------- copy ---------- */
 document.getElementById('copyphr').addEventListener('click',e=>{const t='Không thịt heo, không thịt bò. Chỉ gà hoặc hải sản.';const b=e.currentTarget;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent='Copied'}).catch(()=>{b.textContent=t})});
