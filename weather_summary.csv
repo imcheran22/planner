@@ -1,0 +1,8 @@
+﻿point,days,avg_max_c,avg_min_c,avg_rain_mm_per_day,pct_rain_days,pct_washout_days,pct_good_days,avg_sunshine_h,pct_clouded_mornings,pct_dry_evenings,avg_evening_temp_c,median_wave_max_m,pct_rough_over_1_5m,pct_calm_under_1m
+Hoi An,84,23.99,19.3,5.22,57.1,51.2,41.7,7.33,44.0,75.0,21.48,,,
+Hue,84,23.73,17.91,4.75,51.2,41.7,44.0,6.77,41.7,75.0,20.54,,,
+Da Nang beach,84,24.06,19.0,5.64,54.8,48.8,42.9,7.52,48.8,75.0,21.28,,,
+Ba Na Hills,84,15.54,10.2,4.98,61.9,53.6,36.9,6.44,59.5,81.0,11.89,,,
+Hai Van Pass,84,20.51,16.22,8.39,63.1,57.1,36.9,7.48,52.4,61.9,17.95,,,
+Da Nang beach sea,84,,,,,,,,,,,1.21,44.0,27.4
+Hoi An beach sea,84,,,,,,,,,,,1.21,44.0,27.4

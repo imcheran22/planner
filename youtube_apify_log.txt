@@ -1,0 +1,28 @@
+
+######## YouTube transcripts via Apify ########
+   150 relevant videos; 0 already have a transcript; 150 to fetch.
+   Estimated cost: step 1 ~$0.60, step 2 (only misses) up to ~$0.45
+   Account: latticed_elderflower | credit left: $3.76 | resets 2026-11-29
+   Go ahead? (y/n): 
+=== Step 1: Apify YouTube Scraper (captions only) ===
+   credit left: $3.76
+   running streamers/youtube-scraper [videos 1-50] est $0.20, cap $0.50 ...
+   -> 50 items
+   transcripts saved from this batch: 48 of 50
+   credit left: $3.57
+   running streamers/youtube-scraper [videos 51-100] est $0.20, cap $0.50 ...
+   -> 50 items
+   transcripts saved from this batch: 50 of 50
+   credit left: $3.36
+   running streamers/youtube-scraper [videos 101-150] est $0.20, cap $0.50 ...
+   -> 50 items
+   transcripts saved from this batch: 46 of 50
+
+=== Step 2: second transcript scraper for 6 videos without captions ===
+   credit left: $3.16
+   running devsef/youtube-transcript-scraper [misses 1-6] est $0.02, cap $0.50 ...
+   -> 6 items
+   transcripts saved from this batch: 0 of 6
+
+Saved youtube_transcripts_v2.csv: 144 of 150 videos have a transcript.
+Attach youtube_transcripts_v2.csv (and youtube_apify_log.txt if anything failed).

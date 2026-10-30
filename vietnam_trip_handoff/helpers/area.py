@@ -1,0 +1,17 @@
+import pandas as pd
+def area(lat,lng):
+    if pd.isna(lat): return 'unknown'
+    if 16.38<=lat<=16.6 and 107.45<=lng<=107.75: return 'Hue'
+    if 16.15<=lat<=16.3 and 107.9<=lng<=108.15: return 'Lang Co/Hai Van'
+    if 16.08<=lat<=16.16 and lng>=108.25: return 'Son Tra peninsula'
+    if 16.0<=lat<=16.12 and 108.235<=lng<=108.27: return 'Da Nang My Khe/An Thuong beach'
+    if 16.0<=lat<=16.12 and 108.15<=lng<108.235: return 'Da Nang city centre'
+    if 15.93<=lat<16.0 and 108.25<=lng<=108.34: return 'Non Nuoc / Ngu Hanh Son beach'
+    if 15.89<=lat<15.93 and 108.31<=lng<=108.37: return 'An Bang / Cam An / Ha My beach'
+    if 15.85<=lat<15.89 and 108.36<=lng<=108.42: return 'Cua Dai beach'
+    if 15.86<=lat<15.9 and 108.30<=lng<=108.36: return 'Hoi An old town'
+    if 15.82<=lat<15.95 and 108.25<=lng<=108.45: return 'Hoi An outskirts'
+    if 15.94<=lat<=15.97 and lng>=108.48: return 'Cham Islands'
+    if 15.95<=lat<=16.02 and 107.95<=lng<=108.0: return 'Ba Na Hills'
+    if 15.75<=lat<=15.8 and 108.1<=lng<=108.15: return 'My Son'
+    return 'other/far'

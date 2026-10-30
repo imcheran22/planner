@@ -1,0 +1,321 @@
+
+######## Vietnam extra data v2 - 2026-10-30 12:34 ########
+
+=== WEATHER: 22-28 Jan, 2015-2026 ===
+   Hoi An: 84 days
+   Hue: 84 days
+
+######## Vietnam extra data v2 - 2026-10-30 12:37 ########
+
+=== WEATHER: 22-28 Jan, 2015-2026 ===
+   Hoi An: 84 days
+   Hue: 84 days
+
+######## Vietnam extra data v2 - 2026-10-30 12:37 ########
+
+=== WEATHER: 22-28 Jan, 2015-2026 ===
+   Hoi An: 84 days
+   Hue: 84 days
+   Da Nang beach: 84 days
+   Ba Na Hills: 84 days
+   Hai Van Pass: 84 days
+   Da Nang beach sea: 84 days
+   Hoi An beach sea: 84 days
+   saved    588 rows -> weather_daily.csv
+   saved      7 rows -> weather_summary.csv
+
+WEATHER 22-28 JANUARY, 2015-2026 (12 years x 7 days per place)
+Source: Open-Meteo historical reanalysis (ERA5 family, ~9-25 km grid). Typical odds, not a forecast.
+
+Hoi An: max 23.99 C / min 19.3 C | rain on 57.1% of days, washouts 51.2%, good sunny days 41.7% | sun 7.33 h/day | clouded-in mornings 44.0% | dry evenings (18-22h) 75.0%, evening temp 21.48 C
+Hue: max 23.73 C / min 17.91 C | rain on 51.2% of days, washouts 41.7%, good sunny days 44.0% | sun 6.77 h/day | clouded-in mornings 41.7% | dry evenings (18-22h) 75.0%, evening temp 20.54 C
+Da Nang beach: max 24.06 C / min 19.0 C | rain on 54.8% of days, washouts 48.8%, good sunny days 42.9% | sun 7.52 h/day | clouded-in mornings 48.8% | dry evenings (18-22h) 75.0%, evening temp 21.28 C
+Ba Na Hills: max 15.54 C / min 10.2 C | rain on 61.9% of days, washouts 53.6%, good sunny days 36.9% | sun 6.44 h/day | clouded-in mornings 59.5% | dry evenings (18-22h) 81.0%, evening temp 11.89 C
+Hai Van Pass: max 20.51 C / min 16.22 C | rain on 63.1% of days, washouts 57.1%, good sunny days 36.9% | sun 7.48 h/day | clouded-in mornings 52.4% | dry evenings (18-22h) 61.9%, evening temp 17.95 C
+
+PLAN-SPECIFIC ODDS
+Hoi An evenings 22-23 Jan (lantern boat): at least one dry evening in 100.0% of years.
+Hue 24-25 Jan: at least one washout day in 50.0% of years; both washed out in 33.3%.
+Hai Van Pass 24 Jan (drive day): clouded-in morning in 41.7% of years, washout in 50.0%.
+Ba Na Hills mornings: clouded-in on 27 Jan in 66.7% of years; clear on at least one of 26/27 Jan in 58.3%.
+   If 26 Jan was clouded, 27 Jan was also clouded in 83.3% of those years.
+Da Nang beach sea: median daily max wave 1.21 m | over 1.5 m on 44.0% of days | under 1 m on 27.4%.
+Hoi An beach sea: median daily max wave 1.21 m | over 1.5 m on 44.0% of days | under 1 m on 27.4%.
+
+NOTES: 'clouded-in morning' = 07-12h low cloud >= 80%, or humidity >= 95% with cloud >= 80%, or >= 1 mm rain (the grid smooths mountains, so Ba Na is a relative guide, not a fog count). 'washout' = >= 10 mm or >= 8 rainy hours. 'good day' = < 1 mm and >= 5 h sun. 'dry evening' = < 0.5 mm between 18:00 and 21:59.
+
+=== Apify parts (run in this order while credit lasts) ===
+   Booking prices               est. $0.70
+   Google Maps deep reviews     est. $1.27
+   Booking reviews              est. $0.78
+   GetYourGuide reviews         est. $1.54
+   X / Twitter                  est. $0.20
+   TOTAL                        est. $4.48   (estimates; each run also has a hard cap)
+   Account: violetish_fondue | credit left: $5.00 | resets 2026-11-29
+   Go ahead? (y/n): 
+=== BOOKING.COM prices for your dates ===
+   credit left: $5.00
+   running voyager/booking-scraper  [La Siesta Hoi An Resort & Spa]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.98
+   running voyager/booking-scraper  [Little Hoi An Boutique Hotel & Spa]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.97
+   running voyager/booking-scraper  [Cozy An Boutique Hotel Hoi An]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.92
+   running voyager/booking-scraper  [Moire Hoi An]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.91
+   running voyager/booking-scraper  [Pilgrimage Village Hue]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.88
+   running voyager/booking-scraper  [Azerai La Residence Hue]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.83
+   running voyager/booking-scraper  [Melia Vinpearl Hue]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.82
+   running voyager/booking-scraper  [Naman Retreat Da Nang]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.79
+   running voyager/booking-scraper  [Fusion Resort & Villas Da Nang]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.74
+   running voyager/booking-scraper  [Pullman Danang Beach Resort]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.73
+   running voyager/booking-scraper  [Furama Resort Danang]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.68
+   running voyager/booking-scraper  [TMS Hotel Da Nang Beach]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.65
+   running voyager/booking-scraper  [Chicland Hotel Danang Beach]  est $0.01, cap $0.50 ...
+   -> 3 items
+   credit left: $4.63
+   running voyager/booking-scraper  [Da Nang sea-view finder (1 night)]  est $0.25, cap $0.50 ...
+   -> 51 items
+   credit left: $4.13
+   running voyager/booking-scraper  [Da Nang central (1 night)]  est $0.12, cap $0.50 ...
+   -> 50 items
+   credit left: $3.64
+   running voyager/booking-scraper  [Hoi An discovery]  est $0.12, cap $0.50 ...
+   -> 50 items
+   credit left: $3.13
+   running voyager/booking-scraper  [Hue discovery]  est $0.10, cap $0.50 ...
+   -> 40 items
+   saved    204 rows -> booking_hotels.csv
+   saved   1012 rows -> booking_rooms.csv
+   (nothing to write for booking_sea_view_options.csv)
+
+   Shortlist (price as listed for the whole stay, INR):
+   - Hoi An                         La Siesta Hoi An Resort & Spa        cheapest None  sea-view None
+   - Hoi An                         Little Gem Hoi An Boutique Hotel & S cheapest None  sea-view None
+   - Hoi An                         Cozy An Boutique Hotel Hoian         cheapest None  sea-view None
+   - Hoi An                         Moire Hoi An, Vignette Collection by cheapest None  sea-view None
+   - Hue                            Pilgrimage Village Resort & Spa      cheapest None  sea-view None
+   - Hue                            Azerai La Residence, Hue             cheapest None  sea-view None
+   - Hue                            Meliá Vinpearl Hue                   cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Naman Retreat                        cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Fusion Resort and Villas Da Nang - W cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Pullman Danang Beach Resort          cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Furama Resort Danang                 cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   TMS Hotel Da Nang Beach              cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Chicland Boutique Danang Beach Hotel cheapest None  sea-view None
+
+=== GOOGLE MAPS deep reviews ===
+   credit left: $2.72
+   running compass/google-maps-reviews-scraper  [plan places]  est $0.77, cap $1.24 ...
+   -> 1276 items
+   credit left: $1.97
+   running compass/google-maps-reviews-scraper  [big sights]  est $0.30, cap $0.50 ...
+   -> 833 items
+   credit left: $1.45
+   running compass/google-maps-reviews-scraper  [Sun World Ba Na Hills / 'fog']  est $0.05, cap $0.50 ...
+   -> 80 items
+   credit left: $1.45
+   running compass/google-maps-reviews-scraper  [Sun World Ba Na Hills / 'coaster']  est $0.05, cap $0.50 ...
+   -> 80 items
+   credit left: $1.41
+   running compass/google-maps-reviews-scraper  [Sun World Ba Na Hills / 'cloud']  est $0.04, cap $0.50 ...
+   -> 60 items
+   credit left: $1.33
+   running compass/google-maps-reviews-scraper  [Naman Retreat Da Nang / 'ocean view']  est $0.04, cap $0.50 ...
+   -> 60 items
+   credit left: $1.32
+   running compass/google-maps-reviews-scraper  [Hoi An Ancient Town / 'January']  est $0.02, cap $0.50 ...
+   -> 549 items
+   saved   2938 rows -> gmaps_deep_reviews.csv
+   'fog' at Sun World Ba Na Hills: 80 reviews; by month posted: {'10': 80}
+   'coaster' at Sun World Ba Na Hills: 80 reviews; by month posted: {'10': 80}
+   'cloud' at Sun World Ba Na Hills: 60 reviews; by month posted: {'10': 60}
+   'ocean view' at Naman Retreat Da Nang: 60 reviews; by month posted: {'10': 60}
+   'January' at Hoi An Ancient Town: 549 reviews; by month posted: {'01': 23, '02': 27, '03': 20, '04': 36, '05': 25, '06': 51, '07': 74, '08': 80, '09': 92, '10': 101, '11': 4, '12': 16}
+
+=== BOOKING.COM reviews of the shortlist ===
+   credit left: $1.07
+   running voyager/booking-reviews-scraper  [Booking reviews]  est $0.78, cap $1.02 ...
+   -> 525 items
+   saved    525 rows -> booking_reviews.csv
+
+=== GETYOURGUIDE reviews ===
+   credit left: $0.26
+   -- skipping 'GetYourGuide' (needs ~$1.54, Apify needs >= $0.50 headroom per run)
+   (nothing to write for gyg_reviews.csv)
+
+=== X / TWITTER ===
+   credit left: $0.26
+   -- skipping 'X / Twitter' (needs ~$0.20, Apify needs >= $0.50 headroom per run)
+   (nothing to write for x_posts.csv)
+
+=== YOUTUBE transcripts (auto-captions) ===
+   150 relevant videos selected.
+   [1/150] YouTube is rate-limiting (HTTP Error 429: Too Many Requests). Waiting 90s ...
+   [1/150] YouTube is rate-limiting (HTTP Error 429: Too Many Requests). Waiting 180s ...
+   !! Still blocked. Stopping YouTube for now - re-run later (or on a phone hotspot).
+   (nothing to write for youtube_transcripts_v2.csv)
+   transcripts: 0 of 0 processed videos
+
+================ DONE ================
+Not run this time (credit): GetYourGuide, X / Twitter
+Re-run this script after your Apify credit resets (2026-11-29); finished parts are cached.
+Attach these files in the chat:
+   - weather_summary.txt  (2 KB)
+   - weather_daily.csv  (65 KB)
+   - booking_hotels.csv  (16654 KB)
+   - booking_rooms.csv  (121 KB)
+   - gmaps_deep_reviews.csv  (4946 KB)
+   - booking_reviews.csv  (775 KB)
+   - extra_data_log.txt  (9 KB)
+
+######## Vietnam extra data v2 - 2026-10-30 14:01 ########
+
+=== WEATHER: 22-28 Jan, 2015-2026 ===
+   Hoi An: 84 days
+   Hue: 84 days
+   Da Nang beach: 84 days
+   Ba Na Hills: 84 days
+   Hai Van Pass: 84 days
+   Da Nang beach sea: 84 days
+   Hoi An beach sea: 84 days
+   saved    588 rows -> weather_daily.csv
+   saved      7 rows -> weather_summary.csv
+
+WEATHER 22-28 JANUARY, 2015-2026 (12 years x 7 days per place)
+Source: Open-Meteo historical reanalysis (ERA5 family, ~9-25 km grid). Typical odds, not a forecast.
+
+Hoi An: max 23.99 C / min 19.3 C | rain on 57.1% of days, washouts 51.2%, good sunny days 41.7% | sun 7.33 h/day | clouded-in mornings 44.0% | dry evenings (18-22h) 75.0%, evening temp 21.48 C
+Hue: max 23.73 C / min 17.91 C | rain on 51.2% of days, washouts 41.7%, good sunny days 44.0% | sun 6.77 h/day | clouded-in mornings 41.7% | dry evenings (18-22h) 75.0%, evening temp 20.54 C
+Da Nang beach: max 24.06 C / min 19.0 C | rain on 54.8% of days, washouts 48.8%, good sunny days 42.9% | sun 7.52 h/day | clouded-in mornings 48.8% | dry evenings (18-22h) 75.0%, evening temp 21.28 C
+Ba Na Hills: max 15.54 C / min 10.2 C | rain on 61.9% of days, washouts 53.6%, good sunny days 36.9% | sun 6.44 h/day | clouded-in mornings 59.5% | dry evenings (18-22h) 81.0%, evening temp 11.89 C
+Hai Van Pass: max 20.51 C / min 16.22 C | rain on 63.1% of days, washouts 57.1%, good sunny days 36.9% | sun 7.48 h/day | clouded-in mornings 52.4% | dry evenings (18-22h) 61.9%, evening temp 17.95 C
+
+PLAN-SPECIFIC ODDS
+Hoi An evenings 22-23 Jan (lantern boat): at least one dry evening in 100.0% of years.
+Hue 24-25 Jan: at least one washout day in 50.0% of years; both washed out in 33.3%.
+Hai Van Pass 24 Jan (drive day): clouded-in morning in 41.7% of years, washout in 50.0%.
+Ba Na Hills mornings: clouded-in on 27 Jan in 66.7% of years; clear on at least one of 26/27 Jan in 58.3%.
+   If 26 Jan was clouded, 27 Jan was also clouded in 83.3% of those years.
+Da Nang beach sea: median daily max wave 1.21 m | over 1.5 m on 44.0% of days | under 1 m on 27.4%.
+Hoi An beach sea: median daily max wave 1.21 m | over 1.5 m on 44.0% of days | under 1 m on 27.4%.
+
+NOTES: 'clouded-in morning' = 07-12h low cloud >= 80%, or humidity >= 95% with cloud >= 80%, or >= 1 mm rain (the grid smooths mountains, so Ba Na is a relative guide, not a fog count). 'washout' = >= 10 mm or >= 8 rainy hours. 'good day' = < 1 mm and >= 5 h sun. 'dry evening' = < 0.5 mm between 18:00 and 21:59.
+
+=== Apify parts (run in this order while credit lasts) ===
+   Booking prices               est. $0.70
+   Google Maps deep reviews     est. $1.27
+   Booking reviews              est. $0.78
+   GetYourGuide reviews         est. $1.54
+   X / Twitter                  est. $0.20
+   TOTAL                        est. $4.48   (estimates; each run also has a hard cap)
+   Account: latticed_elderflower | credit left: $5.00 | resets 2026-11-29
+   Go ahead? (y/n): 
+=== BOOKING.COM prices for your dates ===
+   cached: La Siesta Hoi An Resort & Spa (3 items)
+   cached: Little Hoi An Boutique Hotel & Spa (3 items)
+   cached: Cozy An Boutique Hotel Hoi An (3 items)
+   cached: Moire Hoi An (3 items)
+   cached: Pilgrimage Village Hue (3 items)
+   cached: Azerai La Residence Hue (3 items)
+   cached: Melia Vinpearl Hue (3 items)
+   cached: Naman Retreat Da Nang (3 items)
+   cached: Fusion Resort & Villas Da Nang (3 items)
+   cached: Pullman Danang Beach Resort (3 items)
+   cached: Furama Resort Danang (3 items)
+   cached: TMS Hotel Da Nang Beach (3 items)
+   cached: Chicland Hotel Danang Beach (3 items)
+   cached: Da Nang sea-view finder (1 night) (51 items)
+   cached: Da Nang central (1 night) (50 items)
+   cached: Hoi An discovery (50 items)
+   cached: Hue discovery (40 items)
+   saved    204 rows -> booking_hotels.csv
+   saved    204 rows -> booking_hotels_full.csv
+   saved   1012 rows -> booking_rooms.csv
+   (nothing to write for booking_sea_view_options.csv)
+
+   Shortlist (price as listed for the whole stay, INR):
+   - Hoi An                         La Siesta Hoi An Resort & Spa        cheapest None  sea-view None
+   - Hoi An                         Little Gem Hoi An Boutique Hotel & S cheapest None  sea-view None
+   - Hoi An                         Cozy An Boutique Hotel Hoian         cheapest None  sea-view None
+   - Hoi An                         Moire Hoi An, Vignette Collection by cheapest None  sea-view None
+   - Hue                            Pilgrimage Village Resort & Spa      cheapest None  sea-view None
+   - Hue                            Azerai La Residence, Hue             cheapest None  sea-view None
+   - Hue                            Meliá Vinpearl Hue                   cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Naman Retreat                        cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Fusion Resort and Villas Da Nang - W cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Pullman Danang Beach Resort          cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Furama Resort Danang                 cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   TMS Hotel Da Nang Beach              cheapest None  sea-view None
+   - Da Nang beach-view (1 night)   Chicland Boutique Danang Beach Hotel cheapest None  sea-view None
+
+=== GOOGLE MAPS deep reviews ===
+   cached: plan places (1276 items)
+   cached: big sights (833 items)
+   cached: Sun World Ba Na Hills / 'fog' (80 items)
+   cached: Sun World Ba Na Hills / 'coaster' (80 items)
+   cached: Sun World Ba Na Hills / 'cloud' (60 items)
+   cached: Naman Retreat Da Nang / 'ocean view' (60 items)
+   cached: Hoi An Ancient Town / 'January' (549 items)
+   saved   2938 rows -> gmaps_deep_reviews.csv
+   'fog' at Sun World Ba Na Hills: 80 reviews; by month posted: {'10': 80}
+   'coaster' at Sun World Ba Na Hills: 80 reviews; by month posted: {'10': 80}
+   'cloud' at Sun World Ba Na Hills: 60 reviews; by month posted: {'10': 60}
+   'ocean view' at Naman Retreat Da Nang: 60 reviews; by month posted: {'10': 60}
+   'January' at Hoi An Ancient Town: 549 reviews; by month posted: {'01': 23, '02': 27, '03': 20, '04': 36, '05': 25, '06': 51, '07': 74, '08': 80, '09': 92, '10': 101, '11': 4, '12': 16}
+
+=== BOOKING.COM reviews of the shortlist ===
+   cached: Booking reviews (525 items)
+   saved    525 rows -> booking_reviews.csv
+
+=== GETYOURGUIDE reviews ===
+   credit left: $5.00
+   running automation-lab/getyourguide-reviews-scraper  [GetYourGuide]  est $1.54, cap $2.46 ...
+   -> 249 items
+   saved    249 rows -> gyg_reviews.csv
+
+=== X / TWITTER ===
+   credit left: $4.09
+   running xquik/x-tweet-scraper  [X / Twitter]  est $0.20, cap $0.50 ...
+   -> 1000 items
+   saved   1000 rows -> x_posts.csv
+
+=== YOUTUBE transcripts (auto-captions) ===
+   150 relevant videos selected.
+   [1/150] YouTube is rate-limiting (HTTP Error 429: Too Many Requests). Waiting 90s ...
+   [1/150] YouTube is rate-limiting (HTTP Error 429: Too Many Requests). Waiting 180s ...
+   !! Still blocked. Stopping YouTube for now - re-run later (or on a phone hotspot).
+   (nothing to write for youtube_transcripts_v2.csv)
+   transcripts: 0 of 0 processed videos
+
+================ DONE ================
+Attach these files in the chat:
+   - weather_summary.txt  (2 KB)
+   - weather_daily.csv  (65 KB)
+   - booking_hotels.csv  (86 KB)
+   - booking_rooms.csv  (121 KB)
+   - gmaps_deep_reviews.csv  (4946 KB)
+   - booking_reviews.csv  (775 KB)
+   - gyg_reviews.csv  (160 KB)
+   - x_posts.csv  (560 KB)
+   - extra_data_log.txt  (17 KB)
