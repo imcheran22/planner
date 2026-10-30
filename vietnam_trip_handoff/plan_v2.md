@@ -396,6 +396,32 @@ Unchanged from v1 (Google Flights alerts; evisa.gov.vn only; Booking/Agoda free-
 
 The visual version of this plan is `honeymoon_map.html` in this folder.
 
+
+## Whole-Vietnam options: 9 versions in 3 region mixes (added 30 Oct 2026)
+
+The interactive version is `vietnam_route_finder.html` in this folder. Budgets are computed in `analysis/budget_v3.py`, with every line marked as a listing, quote, cap or proxy.
+
+| Version | Mix | Route (nights) | Fly from | Dates (Jan) | Beach-view nights | Thrill ride | Total for two | Spare |
+|---|---|---|---|---|---|---|---:|---:|
+| 1A | Central only | Da Nang 2 → Hue 2 → Hoi An 2 | Chennai | 22–28 | 2 (good beach day 8/12 yrs) | Ba Na coaster | ₹1,79,559 | ₹20,441 |
+| 1B | Central only | Hoi An 2 → Hue 2 → Da Nang 2 | Chennai | 22–28 | 2 (4/12) | Ba Na coaster | ₹1,89,899 | ₹10,101 |
+| 1C | Central only | Hoi An 2 → Hue 2 → Da Nang 1+1 | Bengaluru | 22–28 | 1 | Ba Na coaster | ₹1,83,994 | ₹16,006 |
+| 2A | North + Central | Hanoi 1 → Lan Ha cruise 1 → Hoi An 2 → Da Nang 2 | Bengaluru (in via Kolkata, out via Bangkok) | 22–28 | 1 (3/12) | Ba Na coaster | ₹1,88,016 | ₹11,984 |
+| 2B | North + Central | Hanoi 1 → Ninh Binh 1 → Da Nang 2 → Hoi An 2 | Bengaluru (open-jaw) | 22–28 | 2 (6/12) | Ba Na coaster | ₹1,84,413 | ₹15,587 |
+| 2C | North + Central | Sapa 2 → Hanoi 1 → Hoi An 2 → Da Nang 1 | Bengaluru (open-jaw) | 22–28 | 1 (3/12) | Sapa coaster + glass bridge | ₹1,73,699 | ₹26,301 |
+| 3A | South + sun | Hoi An 2 → Phu Quoc 3 → Da Nang 1 | Chennai | 22–28 | 3 (dry season) | VinWonders + Hon Thom cable car | ₹1,84,550 | ₹15,450 |
+| 3B | South + sun | Saigon 2 → Phu Quoc 4 | Bengaluru nonstop (VietJet) | 21–27 (VietJet flies Mon/Wed/Fri/Sun) | 4 | VinWonders + Hon Thom cable car | ₹1,84,455 | ₹15,545 |
+| 3C | South + sun | Hanoi 1 → Lan Ha cruise 1 → Phu Quoc 3 | Bengaluru (in via Kolkata, home nonstop from Saigon) | 22–27, 5 nights | 3 | VinWonders + Hon Thom cable car | ₹1,93,563 | ₹6,437 |
+
+**New evidence behind the North and South versions:**
+- **Real costs from a Bengaluru group** (r/InternationalTravelIN, Nov 2025, 344 upvotes): Bengaluru → Da Nang via Bangkok ₹14,000, Hanoi → Bengaluru via Kolkata ₹15,000, Da Nang → Hanoi ₹3,000 (each, one way). Fansipan cable car + monorail ₹3,466, Sapa alpine coaster ₹584, glass bridge ₹1,708, Trang An + Mua Cave ₹1,167, Bai Dinh ₹513, Lan Ha day cruise ₹4,600 (each). Their Sapa glass bridge was fogged out.
+- **Lan Ha overnight cruise:** ₹35,000 for two (Peony Deluxe Balcony quote, Sep 2026); listings run $108–300 per person per night. Reddit: "Go to Lan Ha bay instead! Same scenery way less boats".
+- **VietJet Bengaluru ↔ Saigon nonstop:** 23:35 departure, about 4h 55m, Mon/Wed/Fri/Sun (Flightmapper, from 30 Mar 2026). It doesn't fly on Thursdays, which is why 3B shifts to 21–27 Jan and 3C ends a night early.
+- **Phu Quoc 2026 prices:** Hon Thom cable car 850,000 VND, VinWonders 950,000 VND, Kiss of the Sea show about 950,000 VND, Sunset Town free entry. 4★ hotels average $170–174 a night on Trip.com, with some Long Beach rooms from $66.
+- **Sapa:** limousine vans from Hanoi 320,000–450,000 VND, 5.5–6 h. Fansipan 850,000 VND plus the Muong Hoa train at 200,000. January is about 6–13 °C, with frost possible.
+- **January climate** (published averages; the weather-history API is blocked from this cloud session): Hanoi 14–20 °C with poor air quality reported on Reddit; Ha Long has its driest month with morning mist; Phu Quoc 26–31 °C with about 5 rainy days; Saigon 23–33 °C with about 2 rainy days.
+- **Still not collected:** hotel prices for Hanoi, Ninh Binh, Sapa, Phu Quoc and Saigon (all **caps**), Saigon tours, and live fares for 21–28 Jan. Check these on Booking and the airline sites before booking.
+
 ## Sources
 
 Traveller data collected 29–30 Oct 2026 (Reddit, YouTube, Google Maps, Booking.com, GetYourGuide, Open-Meteo, X). Web pages opened on 30 Oct 2026:
