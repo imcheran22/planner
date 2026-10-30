@@ -380,6 +380,22 @@ Unchanged from v1 (Google Flights alerts; evisa.gov.vn only; Booking/Agoda free-
 | `vietnam_reddit_v6.csv` | 54 threads, 1,145 rows | Stacked with v5 (threads 1001+) |
 | `x_posts.csv` | 1,000 posts, mostly photo spam | Low weight; nothing used |
 
+## Gaps filled from the web (30 Oct 2026, second pass)
+
+| Gap | Found | Status |
+|---|---|---|
+| Landing time | AirAsia Chennai 23:45 → Da Nang 10:50 next day, 9h 35m via Kuala Lumpur ([Trip.com](https://in.trip.com/flights/airport-maa-dad/), a Sep 2026 date). Day 1 gets a full afternoon. | Confirm for 21 Jan |
+| Fare for your dates | No Jan 2027 fare published; [AirAsia](https://www.airasia.com/flights/from-chennai-maa-to-da-nang-dad) shows Chennai → Da Nang from ₹12,469 one way. Budget keeps ₹22,838 return each. | Set alerts |
+| Heritage train times | Klook/Headout: Hue → Da Nang 07:05 (HĐ1), 14:30 (HĐ3); Da Nang → Hue 07:05 (HĐ2), 15:20 (HĐ4). A 2024 launch report gives other times. | Confirm on dsvn.vn |
+| Lantern class | Local workshops 235,000–380,000 VND each ([Good Morning Hoi An](https://goodmorning-hoian.com/en/hoi-an-lantern-workshop/)); booking sites $9–13. | Pay from the buffer |
+| Cooking class | Gioan about $40 each ([Vinpearl](https://vinpearl.com/en/cooking-classes-in-hoi-an), undated); similar basket-boat classes $19–37. Budget keeps $46. | Ask Gioan for the private rate |
+| Ba Na fog timing | Heaviest before 10:00 and after 16:00; clouds rebuild from about 14:00 ([hoiandaytrip.com](https://hoiandaytrip.com/ba-na-hills-weather-by-month/)). Aim to be at the top by 10:00. | Use with the forecast |
+| Hoi An seawall | Emergency order 22 Apr 2026, about 2 km of embankment, VND 288 billion ([Tuoi Tre](https://news.tuoitre.vn/da-nang-orders-189mn-emergency-embankment-project-to-curb-erosion-103260425111256012.htm)). No October progress found. | Keep beach nights in Da Nang |
+| Golden Lotus Grand | 86 Lê Quang Đạo, An Thượng; 5–10 min walk to My Khe. | Ask for high floor, sea side |
+| Proxy hotel nights | Booking and Klook pages are blocked from this cloud session. | **Still open:** check on Booking yourself |
+
+The visual version of this plan is `honeymoon_map.html` in this folder.
+
 ## Sources
 
 Traveller data collected 29–30 Oct 2026 (Reddit, YouTube, Google Maps, Booking.com, GetYourGuide, Open-Meteo, X). Web pages opened on 30 Oct 2026:

@@ -1,0 +1,508 @@
+<title>Central Vietnam Honeymoon Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a field map. Sticky regional map beside the day list on wide screens, stacked on phones; then close-up maps, weather odds as 12-dot year rows, money bars, and a shared cheat sheet. */
+:root{
+  --paper:#EDF1EE; --card:#F8FAF8; --ink:#13302E; --muted:#56706B; --rule:#C7D3CF;
+  --land:#DCE5D6; --land-edge:#AFC1AA; --sea:#CADCE2; --river:#A9C7D2;
+  --lantern:#E3A51F; --lantern-ink:#8A5B00; --train:#2D6C8C; --car:#13302E; --grab:#7A6A9E;
+  --good:#2F7A48; --bad:#B0402C; --dot-off:#CCD8D4;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0D191E; --card:#132329; --ink:#E6EEEA; --muted:#93A8A3; --rule:#2A3D40;
+  --land:#18292A; --land-edge:#2E4545; --sea:#0A2029; --river:#1E4352;
+  --lantern:#F2B634; --lantern-ink:#F2B634; --train:#6DB2D3; --car:#E6EEEA; --grab:#B5A6DA;
+  --good:#79C18F; --bad:#E77B66; --dot-off:#28393C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0D191E; --card:#132329; --ink:#E6EEEA; --muted:#93A8A3; --rule:#2A3D40;
+  --land:#18292A; --land-edge:#2E4545; --sea:#0A2029; --river:#1E4352;
+  --lantern:#F2B634; --lantern-ink:#F2B634; --train:#6DB2D3; --car:#E6EEEA; --grab:#B5A6DA;
+  --good:#79C18F; --bad:#E77B66; --dot-off:#28393C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--f-body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.1}
+h1{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800}
+h3{font-size:1.05rem;font-weight:600}
+p{margin:0;max-width:66ch}
+.eyebrow{font:500 .74rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+a{color:inherit;text-underline-offset:3px}
+header{display:grid;gap:14px}
+.lead{font-size:1.08rem;max-width:62ch}
+section{display:grid;gap:18px}
+.sec-head{display:grid;gap:6px}
+
+/* combo switch */
+.combos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.combos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.combo{appearance:none;text-align:left;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);border-radius:10px;padding:12px 14px;cursor:pointer;display:grid;gap:4px;font:inherit;min-width:0}
+.combo:hover{border-color:var(--muted)}
+.combo:focus-visible{outline:3px solid var(--lantern);outline-offset:2px}
+.combo[aria-pressed="true"]{border-color:var(--lantern);box-shadow:inset 0 0 0 1.5px var(--lantern)}
+.combo .k{font:800 1.3rem/1 var(--f-display)}
+.combo .n{font-weight:600;font-size:.92rem}
+.combo .t{font-size:.84rem;color:var(--muted)}
+.pick{font:500 .66rem/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;background:var(--lantern);color:#1b1300;padding:3px 6px;border-radius:4px;justify-self:start}
+
+/* main map + days */
+.main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.main{grid-template-columns:minmax(0,1fr)}}
+.mapbox{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:grid;gap:10px;min-width:0}
+@media (max-width:900px){.mapbox{position:static}}
+svg.map{width:100%;height:auto;display:block;border-radius:12px;background:var(--sea)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid}
+.days{display:grid;gap:8px;min-width:0}
+.day{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:12px;border-radius:10px;border:1px solid transparent;cursor:pointer;background:transparent;text-align:left;color:inherit;font:inherit}
+.day:hover{background:var(--card)}
+.day:focus-visible{outline:3px solid var(--lantern);outline-offset:1px}
+.day.on{background:var(--card);border-color:var(--rule)}
+.dnum{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 1rem/1 var(--f-display);border:2px solid var(--ink)}
+.day.on .dnum{background:var(--lantern);border-color:var(--lantern);color:#1b1300}
+.dtop{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.dtop b{font-family:var(--f-display);font-weight:600;font-size:1rem}
+.sleep{font-size:.8rem;color:var(--muted)}
+.dtxt{font-size:.92rem;margin-top:2px}
+.chip{display:inline-block;font:500 .68rem/1 var(--f-mono);letter-spacing:.04em;padding:4px 6px;border-radius:4px;border:1px solid var(--rule);color:var(--muted);margin-top:6px;margin-right:4px}
+.dwhy{font-size:.84rem;color:var(--muted);margin-top:4px}
+
+/* zooms */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{appearance:none;font:600 .9rem/1 var(--f-body);padding:9px 14px;border-radius:999px;border:1.5px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab:focus-visible{outline:3px solid var(--lantern);outline-offset:2px}
+.zoom{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:900px){.zoom{grid-template-columns:minmax(0,1fr)}}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:2px;min-width:0}
+.plist li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:7px 8px;border-radius:8px;font-size:.9rem}
+.plist li.hl{background:var(--card)}
+.pin{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:500 .72rem/1 var(--f-mono);color:#fff}
+.plist .nm{font-weight:600}
+.plist .nt{color:var(--muted);font-size:.84rem}
+
+/* odds */
+.odds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 36px}
+@media (max-width:760px){.odds{grid-template-columns:minmax(0,1fr)}}
+.odd{display:grid;gap:8px;padding-block:14px;border-top:1px solid var(--rule)}
+.odd h3{font-size:1rem}
+.yrs{display:grid;grid-template-columns:96px minmax(0,1fr) 44px;gap:8px;align-items:center;font-size:.84rem}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:14px;height:14px;border-radius:50%;background:var(--dot-off)}
+.dots i.y{background:var(--lantern)}
+.yrs .num{text-align:right}
+
+/* money */
+.money{display:grid;gap:14px}
+.mrow{display:grid;grid-template-columns:150px minmax(0,1fr) 90px;gap:12px;align-items:center}
+@media (max-width:600px){.mrow{grid-template-columns:minmax(0,1fr) 84px}.mrow .bar{grid-column:1/-1;grid-row:2}}
+.mrow.on .ml{font-weight:700}
+.bar{display:flex;height:22px;border-radius:5px;overflow:hidden;background:var(--dot-off)}
+.bar span{height:100%}
+.mkey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--muted)}
+.mkey span{display:inline-flex;gap:6px;align-items:center}
+.mkey i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* cheat sheet */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.cards{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.card ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:.92rem}
+.say{display:grid;gap:2px;padding:8px 10px;border-radius:8px;border:1px dashed var(--rule)}
+.say b{font-family:var(--f-display);font-size:1.05rem;font-weight:600}
+.say span{font-size:.84rem;color:var(--muted)}
+.bad{color:var(--bad);font-weight:600}
+.good{color:var(--good);font-weight:600}
+.copy{appearance:none;justify-self:start;font:500 .75rem/1 var(--f-mono);padding:6px 9px;border-radius:6px;border:1px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:500 .72rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+footer{font-size:.84rem;color:var(--muted);display:grid;gap:8px;border-top:1px solid var(--rule);padding-top:18px}
+footer ul{margin:0;padding-left:18px;display:grid;gap:4px}
+svg text{font-family:var(--f-body)}
+.lbl{fill:var(--ink);font-size:11px;font-weight:600;paint-order:stroke;stroke:var(--land);stroke-width:3px;stroke-linejoin:round}
+.lbl.sea{stroke:var(--sea);fill:var(--muted);font-style:italic;font-weight:500}
+.lbl.big{font-size:14px;font-family:var(--f-display);font-weight:800}
+@media (prefers-reduced-motion:no-preference){.leg{transition:opacity .25s,stroke-width .25s}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">22–28 Jan 2027 · Central Vietnam · two of us · ₹2,00,000 cap</span>
+    <h1>Central Vietnam Honeymoon Map</h1>
+    <p class="lead">Six nights on one short stretch of coast: Hue in the north, Da Nang in the middle, Hoi An in the south. Pick a version of the trip below and the map, the days and the money change with it.</p>
+  </header>
+
+  <section aria-labelledby="pick-h">
+    <div class="sec-head">
+      <h2 id="pick-h">Four ways to do it</h2>
+      <p class="muted">All four stay under ₹2 lakh and include Ba Na Hills with the coaster, a cooking class, My Son and a Hue food tour.</p>
+    </div>
+    <div class="combos" id="combos" role="group" aria-label="Choose a trip version"></div>
+  </section>
+
+  <section aria-labelledby="map-h">
+    <div class="sec-head">
+      <h2 id="map-h">The route, day by day</h2>
+      <p class="muted" id="combo-why"></p>
+    </div>
+    <div class="main">
+      <div class="mapbox">
+        <svg class="map" id="overview" viewBox="0 0 600 470" role="img" aria-label="Map of Central Vietnam with the trip route"></svg>
+        <div class="legend">
+          <span><i style="border-color:var(--train);border-top-style:dashed"></i>Heritage train</span>
+          <span><i style="border-color:var(--car)"></i>Private car</span>
+          <span><i style="border-color:var(--grab);border-top-style:dotted"></i>Grab or tour, same day back</span>
+          <span><i style="border-color:var(--lantern);border-top-width:6px;width:12px;border-radius:2px"></i>Where you sleep</span>
+        </div>
+        <p class="muted" style="font-size:.78rem">Coastline is drawn by hand from coordinates, so treat it as a sketch. Hotels, restaurants and sights are placed at their real Google Maps or Booking.com coordinates.</p>
+      </div>
+      <div class="days" id="days"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="zoom-h">
+    <div class="sec-head">
+      <h2 id="zoom-h">Up close: where everything is</h2>
+      <p class="muted">Ratings are Google stars with review counts. Red pins are places the data says to skip.</p>
+    </div>
+    <div class="tabs" role="tablist" id="ztabs"></div>
+    <div class="zoom">
+      <svg class="map" id="zmap" viewBox="0 0 560 420" role="img" aria-label="Close-up map"></svg>
+      <ul class="plist" id="zlist"></ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="odds-h">
+    <div class="sec-head">
+      <h2 id="odds-h">Why Da Nang goes first: twelve Januaries</h2>
+      <p class="muted">Each dot is one year from 2015 to 2026 for the same dates. A yellow dot means it happened that year. Source: Open-Meteo weather history for your exact days.</p>
+    </div>
+    <div class="odds" id="odds"></div>
+  </section>
+
+  <section aria-labelledby="money-h">
+    <div class="sec-head">
+      <h2 id="money-h">Where the money goes</h2>
+      <p class="muted">₹ for two people, whole trip. The grey part on the right is what's left of the ₹2 lakh for travel to the airport, bags, insurance, massages, tips and shopping.</p>
+    </div>
+    <div class="mkey" id="mkey"></div>
+    <div class="money" id="money"></div>
+  </section>
+
+  <section aria-labelledby="know-h">
+    <div class="sec-head">
+      <h2 id="know-h">Things we both should know</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Eating: no pork, no beef</h3>
+        <div class="say"><b>Không thịt heo, không thịt bò</b><span>No pork, no beef</span></div>
+        <div class="say"><b>Chỉ gà hoặc hải sản</b><span>Only chicken or seafood</span></div>
+        <button class="copy" type="button" id="copyphr">Copy both phrases</button>
+        <ul>
+          <li><span class="good">Safe:</span> cơm gà (chicken rice), grilled seafood, white rose dumplings, phở gà, bún cá, chicken bánh mì without pâté.</li>
+          <li><span class="bad">Ask first:</span> cao lầu, nem lụi, bánh xèo, bún bò Huế, phở bò. Many broths use pork bone.</li>
+          <li>Indian or halal backup: Kababish (4.9, 525), India0Miles (4.9, 253), Dhaba 21 Hoi An (5.0, 572), Spice Route (4.9, 1,048).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ba Na Hills: go or skip</h3>
+        <ul>
+          <li>Ticket 1,000,000 VND each. Coaster extra: 100,000 a ride or 250,000 for 3.</li>
+          <li>Top is about <b>15 °C</b>. Bring a fleece and a rain jacket.</li>
+          <li>Clouds stick for the whole week in about half of years. Check the summit forecast 2–3 days before; if it's cloud all week, skip it and keep ₹12,076.</li>
+          <li>Fog tends to be thickest before 10:00 and builds again after about 14:00 (hoiandaytrip.com). Reddit says go at opening for the queues. Aim to be up top by 10:00 and ride the coaster first.</li>
+          <li>The coaster closes in rain or fog.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Skip these</h3>
+        <ul>
+          <li><span class="bad">Asia Park / Sun Wheel:</span> permanently closed (Google; Tuoi Tre).</li>
+          <li><span class="bad">Han River cruise on a weeknight:</span> no fire show; cruises rate 3.9–4.0. Saturday 21:00 only.</li>
+          <li><span class="bad">Naman Retreat:</span> recent Booking 8.3, "signs of age"; Google stars mostly staff-prompted.</li>
+          <li><span class="bad">Hair of the Dog bar, Hoi An:</span> 5 of 30 recent reviews 1–3★ (theft, harassment).</li>
+          <li><span class="bad">Quán Hải Sản Bé Nữ:</span> unpriced seafood ("shrimp 1,200,000 VND").</li>
+          <li>Hoi An beaches: seawall work; Da Nang ordered an emergency 2 km embankment in Apr 2026.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="gap-h">
+    <div class="sec-head">
+      <h2 id="gap-h">Filled in from the web, 30 Oct 2026</h2>
+      <p class="muted">The collected data had gaps. These came from web searches; anything marked "confirm" disagrees between sources.</p>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Gap</th><th>What we found</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>When the flight lands</td><td>AirAsia Chennai 23:45 → Da Nang 10:50 next day, 9h 35m, 1 stop in Kuala Lumpur (Trip.com, a Sep 2026 date). Lands late morning, so Day 1 has a full afternoon.</td><td>Confirm for 21 Jan</td></tr>
+          <tr><td>Flight price for our dates</td><td>No January 2027 fare published yet. AirAsia shows Chennai → Da Nang from ₹12,469 one way. The plan keeps ₹22,838 return each.</td><td>Set alerts</td></tr>
+          <tr><td>Heritage train times</td><td>Klook and Headout: Hue → Da Nang 07:05 (HĐ1) and 14:30 (HĐ3); Da Nang → Hue 07:05 (HĐ2) and 15:20 (HĐ4). A 2024 launch report gives different times.</td><td>Confirm on dsvn.vn</td></tr>
+          <tr><td>Lantern-making class price</td><td>Local workshops 235,000–380,000 VND each (express vs full class); booking sites about $9–13.</td><td>Good enough to budget</td></tr>
+          <tr><td>Cooking class price</td><td>Gioan about $40 each (Vinpearl guide, undated). Similar basket-boat classes $19–37 each. The plan keeps $46.</td><td>Ask Gioan for the private rate</td></tr>
+          <tr><td>Hoi An seawall</td><td>Emergency order on 22 Apr 2026; about 2 km of embankment, VND 288 billion. No October progress report found.</td><td>Keep beach nights in Da Nang</td></tr>
+          <tr><td>Golden Lotus Grand</td><td>86 Lê Quang Đạo, An Thượng, 5–10 min walk to My Khe beach. Booking 9.3 from 1,328 reviews on another listing.</td><td>Ask for a high floor, sea side</td></tr>
+          <tr><td>Hotel prices for 22–23 Jan (Da Nang) and 26–28 Jan (Hoi An)</td><td>Booking and Klook pages are blocked from this session, so these stay estimated from nearby dates.</td><td><span class="bad">Still open:</span> check on Booking</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>Built from the trip folder: 13,934 + 1,145 Reddit rows, 144 YouTube transcripts, 3,555 + 2,938 Google reviews, Booking.com prices for the real dates, 12 years of weather. Exchange rate ₹1 = 271.22 VND, $1 ≈ ₹95.26 (29 Oct 2026). Full detail: plan_v2.md.</span>
+    <ul>
+      <li><a href="https://news.tuoitre.vn/da-nang-downtown-theme-park-to-cease-operations-next-month-103250806105921039.htm">Tuoi Tre: Da Nang Downtown (Asia Park) closing</a></li>
+      <li><a href="https://www.vietnamairlines.com/en/useful-information/travel-guide/dragon-bridge-danang">Vietnam Airlines: Dragon Bridge fire show</a></li>
+      <li><a href="https://www.klook.com/activity/99690-train-ticket-between-hue-danang/">Klook: Hue ↔ Da Nang heritage train</a></li>
+      <li><a href="https://in.trip.com/flights/airport-maa-dad/">Trip.com: Chennai → Da Nang flights</a></li>
+      <li><a href="https://www.airasia.com/flights/from-chennai-maa-to-da-nang-dad">AirAsia: Chennai → Da Nang</a></li>
+      <li><a href="https://hoiandaytrip.com/ba-na-hills-weather-by-month/">hoiandaytrip.com: Ba Na Hills weather by month</a></li>
+      <li><a href="https://news.tuoitre.vn/da-nang-orders-189mn-emergency-embankment-project-to-curb-erosion-103260425111256012.htm">Tuoi Tre: Hoi An emergency embankment</a></li>
+      <li><a href="https://vinpearl.com/en/cooking-classes-in-hoi-an">Vinpearl: cooking classes in Hoi An</a></li>
+      <li><a href="https://goodmorning-hoian.com/en/hoi-an-lantern-workshop/">Good Morning Hoi An: lantern workshop</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+(function(){
+/* ---------- places: [lat, lng, label] ---------- */
+const P={
+  dad:[16.0439,108.1994,'Da Nang airport'],
+  gl:[16.0499,108.2453,'Golden Lotus Grand'], mon:[16.0677,108.2453,'Monarque'], fus:[15.9926,108.2694,'Fusion Resort'],
+  cozy:[15.8774,108.3389,'Cozy An'], tnt:[15.8801,108.3244,'Hoi An TNT Villa'],
+  wl:[16.4653,107.5907,'White Lotus Hue'], pil:[16.4354,107.5806,'Pilgrimage Village'],
+  bana:[16.0266,108.0328,'Ba Na Hills'], myson:[15.7737,108.1092,'My Son'], lady:[16.1002,108.2779,'Lady Buddha'],
+  marble:[16.0037,108.2632,'Marble Mountains'], haivan:[16.195,108.130,'Hai Van Pass'], langco:[16.255,108.075,'Lang Co'],
+  khai:[16.3990,107.5903,'Khai Dinh tomb'], hue:[16.4698,107.5786,'Hue Imperial City'], dnst:[16.0716,108.2094,'Da Nang station'], huest:[16.4567,107.5774,'Hue station']
+};
+const TRAIN=[[16.0716,108.2094],[16.10,108.135],[16.16,108.135],[16.20,108.145],[16.23,108.09],[16.255,108.075],[16.30,107.98],[16.38,107.85],[16.44,107.72],[16.4567,107.5774]];
+const CAR=[[16.4653,107.5907],[16.40,107.70],[16.33,107.90],[16.255,108.075],[16.195,108.13],[16.12,108.125],[16.08,108.155],[16.065,108.20],[16.04,108.23],[16.0037,108.2632],[15.93,108.30],[15.8774,108.3389]];
+const rev=a=>a.slice().reverse();
+const line=(a,b)=>[P[a].slice(0,2),P[b].slice(0,2)];
+
+/* ---------- combos ---------- */
+const MONEY={A:{fly:45676,stay:61897,move:16250,do:35010,eat:25374,visa:5692,total:189899,buffer:10101},B:{fly:45676,stay:61476,move:16250,do:35010,eat:25374,visa:5692,total:189478,buffer:10522},C:{fly:45676,stay:47499,move:16250,do:39068,eat:25374,visa:5692,total:179559,buffer:20441},D:{fly:66612,stay:35056,move:16250,do:35010,eat:25374,visa:5692,total:183994,buffer:16006}};
+const hoiFirst=(hoiStay,hueStay,dn1,dn2)=>[
+ {d:1,date:'Fri 22',sleep:P[hoiStay][2]+', Hoi An',txt:'Land 10:50, Grab to Hoi An (45 min). Old Town at 16:30, lantern boat at 18:00, seafood at Mr. Dũng.',chips:['Grab 350k VND','Old Town 120k each','Boat 150k'],legs:[['grab',[P.dad,P[hoiStay]]]]},
+ {d:2,date:'Sat 23',sleep:P[hoiStay][2]+', Hoi An',txt:'My Son at sunrise (05:00). Private cooking class at Gioan at 13:30 with market and basket boat. Old Town after 21:00.',chips:['My Son tour','Cooking class $46 each'],legs:[['grab',[P[hoiStay],P.myson]]]},
+ {d:3,date:'Sun 24',sleep:P[hueStay][2],txt:'Private car north: Marble Mountains, Hai Van Pass, seafood lunch at Lang Co, Hue by 15:00. Brewpub at night.',chips:['Car about $70'],why:'Hai Van was clear on this date in 5 of 12 years.',legs:[['car',rev(CAR).map((p,i,a)=>i===a.length-1?P[hueStay]:p)]]},
+ {d:4,date:'Mon 25',sleep:P[hueStay][2],txt:'Imperial City and two royal tombs on the combo ticket. Thien Mu pagoda at sunset. Hue food tour in the evening.',chips:['Combo 420k each','Food tour ~$35 each'],legs:[['grab',[P[hueStay],P.hue]],['grab',[P[hueStay],P.khai]]]},
+ {d:5,date:'Tue 26',sleep:P[dn1][2]+', Da Nang',txt:'Heritage train 07:05 along the sea (left side). Pool, Lady Buddha at sunset, An Thuong bars.',chips:['Train 330k each'],legs:[['train',rev(TRAIN)],['grab',[P[dn1],P.lady]]]},
+ {d:6,date:'Wed 27',sleep:P[dn2][2]+', Da Nang',txt:'Ba Na Hills if the forecast is clear, coaster first. Otherwise beach and Cham Museum. Farewell dinner.',chips:['Ba Na 1M VND each','Coaster 250k for 3'],why:'Ba Na clear on 26 or 27 Jan in 7 of 12 years.',legs:[['grab',[P[dn1],P.bana]]].concat(dn1!==dn2?[['grab',[P[dn1],P[dn2]]]]:[])},
+ {d:7,date:'Thu 28',sleep:'Home',txt:'Breakfast, beach walk, Grab to the airport.',chips:[],legs:[['grab',[P[dn2],P.dad]]]}
+];
+const COMBOS={
+ C:{name:'Da Nang first',pick:true,stays:[['gl',2],['wl',2],['cozy',2]],why:'Beach nights first, when the weather history is kindest. Weekend nightlife and the Saturday fire show. Ends with two lantern evenings in Hoi An.',
+  days:[
+   {d:1,date:'Fri 22',sleep:'Golden Lotus Grand, Da Nang',txt:'Land 10:50, 15 min Grab to An Thuong. Beach, then Lady Buddha on Son Tra at sunset. Cocktails at Vấn, live music at Lounge Beach Bar.',chips:['Grab','Sea-view room'],legs:[['grab',[P.dad,P.gl]],['grab',[P.gl,P.lady]]]},
+   {d:2,date:'Sat 23',sleep:'Golden Lotus Grand, Da Nang',txt:'Ba Na Hills if the summit is clear, coaster first; if not, Marble Mountains and the beach. 21:00: Dragon Bridge fire show from a river boat.',chips:['Ba Na 1M VND each','Cruise $21.30 each'],why:'Ba Na clear on 23 or 24 Jan in 5 of 12 years, so treat it as a bonus.',legs:[['grab',[P.gl,P.bana]],['grab',[P.gl,P.marble]]]},
+   {d:3,date:'Sun 24',sleep:'White Lotus, Hue',txt:'Heritage train north along the sea (right side). Imperial City in the afternoon. Imperial Craft brewpub at night.',chips:['Train 330k each','Combo ticket 420k each'],legs:[['train',TRAIN],['grab',[P.wl,P.hue]]]},
+   {d:4,date:'Mon 25',sleep:'White Lotus, Hue',txt:'Khai Dinh and Minh Mang tombs. Thien Mu pagoda at sunset. Street food tour at night.',chips:['Food tour ~$35 each'],legs:[['grab',[P.wl,P.khai]]]},
+   {d:5,date:'Tue 26',sleep:'Cozy An, Hoi An',txt:'Private car south: Lang Co lunch, Hai Van Pass, Marble Mountains. Old Town at 16:30, lantern boat at 18:00, seafood dinner.',chips:['Car about $70','Boat 150k'],why:'Hai Van was clear on this date in 3 of 12 years; if it is in cloud, take the tunnel.',legs:[['car',CAR.map((p,i)=>i===0?P.wl:p)]]},
+   {d:6,date:'Wed 27',sleep:'Cozy An, Hoi An',txt:'My Son at sunrise. Private cooking class at Gioan at 13:30 with market and basket boat. Old Town after 21:00, drinks at Mezcal.',chips:['My Son tour','Cooking class $46 each'],legs:[['grab',[P.cozy,P.myson]]]},
+   {d:7,date:'Thu 28',sleep:'Home',txt:'Breakfast by the river, 45 min Grab to Da Nang airport.',chips:['Grab ~350k VND'],legs:[['grab',[P.cozy,P.dad]]]}
+  ]},
+ A:{name:'Classic, upgraded',stays:[['cozy',2],['pil',2],['gl',2]],why:'The original order with better hotels: Cozy An, Pilgrimage Village, then two sea-view nights in An Thuong.',days:hoiFirst('cozy','pil','gl','gl')},
+ B:{name:'Resort finish',stays:[['cozy',2],['wl',2],['gl',1],['fus',1]],why:'One An Thuong night for the bars, then the last night at Fusion Resort with an ocean-view suite and a spa treatment included.',days:hoiFirst('cozy','wl','gl','fus')},
+ D:{name:'Bengaluru + lean',stays:[['tnt',2],['wl',2],['gl',1],['mon',1]],why:'Fly from Bengaluru via Bangkok (no trip to Chennai). Cheaper hotels pay for the dearer flights.',days:hoiFirst('tnt','wl','gl','mon')}
+};
+COMBOS.B.days[5].txt='Ba Na Hills at opening, coaster first. Then check in at Fusion Resort: ocean-view suite, spa treatment included, sunset on the balcony.';
+COMBOS.D.days[5].txt='Ba Na Hills if clear, coaster first. Move to Monarque for an ocean-view room. Farewell dinner.';
+
+/* ---------- projection ---------- */
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+function proj(b,W,H){const k=Math.cos(((b.n+b.s)/2)*Math.PI/180);const sx=W/((b.e-b.w)*k),sy=H/(b.n-b.s);const s=Math.min(sx,sy);return ([la,ln])=>[(ln-b.w)*k*s,(b.n-la)*s]}
+const pts=(f,a)=>a.map(p=>f(p).map(v=>v.toFixed(1)).join(',')).join(' ');
+
+/* ---------- overview ---------- */
+const COAST=[[16.70,107.40],[16.62,107.52],[16.56,107.62],[16.50,107.72],[16.44,107.82],[16.36,107.92],[16.28,108.02],[16.25,108.07],[16.22,108.12],[16.19,108.18],[16.15,108.15],[16.12,108.13],[16.08,108.16],[16.07,108.21],[16.09,108.235],[16.11,108.25],[16.12,108.28],[16.14,108.30],[16.13,108.33],[16.10,108.33],[16.09,108.29],[16.075,108.255],[16.06,108.249],[16.02,108.258],[15.98,108.275],[15.94,108.31],[15.90,108.36],[15.87,108.40],[15.82,108.44],[15.76,108.50],[15.68,108.56],[15.60,108.56],[15.60,107.30],[16.70,107.30]];
+const OB={n:16.62,s:15.70,w:107.36,e:108.64};
+const ov=document.getElementById('overview'); const fo=proj(OB,600,560); const OH=Math.round(fo([OB.s,OB.e])[1]); ov.setAttribute('viewBox','0 0 600 '+OH);
+function drawBase(){
+  ov.innerHTML='';
+  el('polygon',{points:pts(fo,COAST),fill:'var(--land)',stroke:'var(--land-edge)','stroke-width':1.2},ov);
+  el('polygon',{points:pts(fo,[[15.96,108.50],[15.955,108.53],[15.94,108.53],[15.935,108.505]]),fill:'var(--land)',stroke:'var(--land-edge)'},ov);
+  const rivers=[[[16.36,107.50],[16.42,107.53],[16.452,107.545],[16.462,107.57],[16.468,107.59],[16.48,107.62],[16.53,107.64],[16.56,107.62]],[[15.84,108.12],[15.86,108.22],[15.875,108.30],[15.876,108.33],[15.875,108.36],[15.88,108.39]],[[15.99,108.20],[16.03,108.22],[16.06,108.228],[16.08,108.226]]];
+  rivers.forEach(r=>el('polyline',{points:pts(fo,r),fill:'none',stroke:'var(--river)','stroke-width':2.2,'stroke-linecap':'round'},ov));
+  [['East Sea',16.30,108.30],['Cham Islands',15.975,108.43]].forEach(([t,la,ln])=>{const[x,y]=fo([la,ln]);el('text',{x,y,class:'lbl sea','font-size':12},ov).textContent=t});
+  [['HUE',16.53,107.50],['DA NANG',16.135,107.98],['HOI AN',15.835,108.27]].forEach(([t,la,ln])=>{const[x,y]=fo([la,ln]);el('text',{x,y,class:'lbl big'},ov).textContent=t});
+  // scale bar 20 km
+  const kmPx=fo([16.0,107.5+20/(111.32*Math.cos(16*Math.PI/180))])[0]-fo([16.0,107.5])[0];
+  const g=el('g',{transform:'translate(24,'+(OH-22)+')'},ov);
+  el('rect',{x:0,y:0,width:kmPx,height:5,fill:'var(--ink)'},g);el('rect',{x:kmPx/2,y:0,width:kmPx/2,height:5,fill:'var(--land)',stroke:'var(--ink)'},g);
+  el('text',{x:0,y:-6,class:'lbl','font-size':10},g).textContent='0';el('text',{x:kmPx-14,y:-6,class:'lbl','font-size':10},g).textContent='20 km';
+  const n=el('g',{transform:'translate(565,40)'},ov);el('path',{d:'M0,-16 L7,6 L0,1 L-7,6 Z',fill:'var(--ink)'},n);el('text',{x:-4,y:22,class:'lbl','font-size':11},n).textContent='N';
+}
+const STY={train:{s:'var(--train)',w:3.2,da:'7 5'},car:{s:'var(--car)',w:3,da:''},grab:{s:'var(--grab)',w:2.4,da:'1.5 4'}};
+let combo='C', dayOn=null;
+function drawRoute(){
+  drawBase();
+  const c=COMBOS[combo]; const legsG=el('g',{},ov), markG=el('g',{},ov);
+  c.days.forEach(day=>day.legs.forEach(([m,path])=>{
+    const s=STY[m]; const pl=el('polyline',{points:pts(fo,path.map(p=>p.slice(0,2))),fill:'none',stroke:s.s,'stroke-width':s.w,'stroke-dasharray':s.da,'stroke-linecap':'round','stroke-linejoin':'round',class:'leg','data-d':day.d},legsG);
+    pl.style.opacity=dayOn===null||dayOn===day.d?1:.16;
+    if(dayOn===day.d)pl.setAttribute('stroke-width',s.w+1.6);
+  }));
+  // sights
+  ['bana','myson','lady','marble','haivan','langco','khai'].forEach(k=>{const[x,y]=fo(P[k]);el('circle',{cx:x,cy:y,r:3.6,fill:'var(--card)',stroke:'var(--ink)','stroke-width':1.4},markG);
+    const off={bana:[-8,-8,'end'],myson:[-8,4,'end'],lady:[8,-6,'start'],marble:[8,4,'start'],haivan:[8,-6,'start'],langco:[-8,-6,'end'],khai:[8,4,'start']}[k];
+    el('text',{x:x+off[0],y:y+off[1],'text-anchor':off[2],class:'lbl','font-size':10.5},markG).textContent=P[k][2]});
+  // airport
+  {const[x,y]=fo(P.dad);el('rect',{x:x-5,y:y-5,width:10,height:10,fill:'var(--ink)',transform:`rotate(45 ${x} ${y})`},markG);el('text',{x:x-9,y:y+16,'text-anchor':'end',class:'lbl','font-size':10.5},markG).textContent='Airport'}
+  // stays
+  c.stays.forEach(([k,n],i)=>{const[x,y]=fo(P[k]);const g=el('g',{},markG);
+    el('circle',{cx:x,cy:y,r:9,fill:'var(--lantern)',stroke:'var(--ink)','stroke-width':1.6},g);
+    el('text',{x,y:y+3.8,'text-anchor':'middle','font-size':10.5,'font-weight':700,fill:'#1b1300'},g).textContent=n;
+    const off={wl:[13,-8],pil:[13,10],gl:[13,-10],mon:[13,-12],fus:[13,14],cozy:[13,4],tnt:[-13,-12,'end']}[k];
+    el('text',{x:x+off[0],y:y+off[1],'text-anchor':off[2]||'start',class:'lbl','font-size':11.5},g).textContent=P[k][2]+' · '+n+(n>1?' nights':' night')});
+  // day bubble for highlighted day
+  if(dayOn!==null){const day=c.days.find(d=>d.d===dayOn);const lp=day.legs[0][1];const mid=lp[Math.floor(lp.length/2)];const[x,y]=fo(mid);
+    el('circle',{cx:x,cy:y-16,r:12,fill:'var(--ink)'},markG);el('text',{x,y:y-12,'text-anchor':'middle','font-size':12,'font-weight':800,fill:'var(--paper)'},markG).textContent=day.d}
+}
+
+/* ---------- combo buttons + days ---------- */
+const fmt=n=>'₹'+n.toLocaleString('en-IN');
+const cb=document.getElementById('combos');
+['C','A','B','D'].forEach(k=>{const b=document.createElement('button');b.className='combo';b.type='button';b.id='combo-'+k;b.dataset.k=k;
+  b.innerHTML=`${COMBOS[k].pick?'<span class="pick">Our pick</span>':''}<span class="k">${k}</span><span class="n">${COMBOS[k].name}</span><span class="t"><span class="num">${fmt(MONEY[k].total)}</span> · <span class="num">${fmt(MONEY[k].buffer)}</span> spare</span>`;
+  b.addEventListener('click',()=>{combo=k;dayOn=null;render()});cb.appendChild(b)});
+function renderDays(){
+  const box=document.getElementById('days');box.innerHTML='';
+  COMBOS[combo].days.forEach(day=>{const b=document.createElement('button');b.type='button';b.className='day'+(dayOn===day.d?' on':'');b.setAttribute('aria-pressed',dayOn===day.d);
+    b.innerHTML=`<span class="dnum">${day.d}</span><span><span class="dtop"><b>${day.date} Jan</b><span class="sleep">Sleep: ${day.sleep}</span></span><span class="dtxt" style="display:block">${day.txt}</span>${day.why?`<span class="dwhy" style="display:block">${day.why}</span>`:''}${day.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</span>`;
+    b.addEventListener('click',()=>{dayOn=dayOn===day.d?null:day.d;renderDays();drawRoute()});box.appendChild(b)});
+}
+function render(){
+  document.querySelectorAll('.combo').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===combo));
+  document.getElementById('combo-why').textContent=COMBOS[combo].why+' Tap a day to see it on the map.';
+  renderDays();drawRoute();renderMoney();
+  try{localStorage.setItem('vn-combo',combo)}catch(e){}
+}
+
+/* ---------- zoom maps ---------- */
+const T={stay:'#C98A00',eat:'#2F7A48',drink:'#7A4FA0',sight:'#2D6C8C',class:'#B5651D',avoid:'#B0402C'};
+const Z={
+ dn:{label:'Da Nang (An Thuong)',b:{n:16.106,s:16.036,w:108.205,e:108.29},
+  coast:[[16.036,108.253],[16.05,108.2495],[16.06,108.249],[16.075,108.255],[16.09,108.268],[16.10,108.29]],
+  river:[[16.036,108.2255],[16.06,108.2275],[16.075,108.228],[16.09,108.2235],[16.106,108.217]],
+  pts:[
+   ['stay',16.0499,108.2453,'Golden Lotus Grand','Sea-view high floor ₹12,184/night, breakfast (C, A)'],
+   ['stay',16.0677,108.2453,'Monarque','Ocean-view room ₹10,346, breakfast (D)'],
+   ['drink',16.0589,108.2449,'Vấn Cocktail Bar','(4.9, 1,597)'],
+   ['drink',16.0673,108.2461,'Lounge Beach Bar','(4.8, 3,893) live music'],
+   ['eat',16.0651,108.2306,'Cơm Gà WOW','(4.9, 456) chicken rice'],
+   ['eat',16.0516,108.2475,'India0Miles','(4.9, 253) Indian'],
+   ['eat',16.0520,108.2416,'Kababish Halal','(4.9, 525) Pakistani'],
+   ['eat',16.0423,108.2465,'Manvar Rasoi','(4.8, 1,204) Indian'],
+   ['eat',16.0622,108.2232,'Maazi','(4.8, 4,752) Indian'],
+   ['eat',16.0826,108.2209,'Gypsy Rooftop','(4.9, 2,594) farewell dinner'],
+   ['sight',16.0611,108.2277,'Dragon Bridge','Fire show Sat 21:00'],
+   ['sight',16.1002,108.2779,'Lady Buddha, Son Tra','(4.5, 16,326) free'],
+   ['sight',16.0603,108.2233,'Cham Sculpture Museum','(4.2, 8,287) rainy-day pick'],
+   ['class',16.0686,108.2417,'Jang Mi Spa','(4.9, 8,795) massage'],
+   ['avoid',16.0412,108.2256,'Asia Park / Sun Wheel','Permanently closed'],
+   ['avoid',16.0881,108.2423,'Quán Hải Sản Bé Nữ','Unpriced seafood complaints'],
+   ['avoid',16.0633,108.2303,'Riverside Terrace','Double-tax complaints']
+  ]},
+ ha:{label:'Hoi An',b:{n:15.888,s:15.871,w:108.316,e:108.343},
+  river:[[15.8735,108.316],[15.8742,108.325],[15.8745,108.333],[15.8752,108.343]],
+  pts:[
+   ['stay',15.8774,108.3389,'Cozy An','₹12,778 for 2 nights, pool, breakfast (A, B, C)'],
+   ['stay',15.8801,108.3244,'Hoi An TNT Villa','₹8,338 for 2 nights (D)'],
+   ['sight',15.8771,108.3262,'Japanese Covered Bridge','Old Town ticket 120k each'],
+   ['eat',15.8771,108.3269,'Mê Hội An Rooftop','(4.9, 2,917) sunset coffee'],
+   ['eat',15.8750,108.3278,'Mr. Dũng Seafood','(4.9, 755)'],
+   ['eat',15.8792,108.3283,'White Sails Seafood','(4.8, 1,006)'],
+   ['eat',15.8783,108.3307,'Dhaba 21','(5.0, 572) Indian'],
+   ['eat',15.8786,108.3260,'Spice Route','(4.9, 1,048) halal Indian'],
+   ['drink',15.8785,108.3300,'Mezcal Cocteleria','(4.9, 900)'],
+   ['class',15.8837,108.3315,'Gioan Cookery School','(5.0, 661) ask for private class'],
+   ['class',15.8769,108.3193,'Lantern class with Lynn','(5.0, 1,362)'],
+   ['avoid',15.8758,108.3221,'Hair of the Dog','Theft and harassment reports']
+  ],note:'Coconut Fragrance cooking class (5.0, 1,189) is 3.6 km east, off this map. My Son is 40 km west.'},
+ hu:{label:'Hue',b:{n:16.478,s:16.392,w:107.538,e:107.605},
+  river:[[16.410,107.548],[16.440,107.540],[16.452,107.545],[16.459,107.560],[16.466,107.580],[16.468,107.592],[16.471,107.605]],
+  pts:[
+   ['stay',16.4653,107.5907,'White Lotus Hue','₹10,353 for 2 nights (B, C, D)'],
+   ['stay',16.4354,107.5806,'Pilgrimage Village','₹24,751 for 2 nights (A)'],
+   ['sight',16.4695,107.5774,'Imperial City','(4.6, 24,619) combo 420k each'],
+   ['sight',16.4532,107.5448,'Thien Mu Pagoda','(4.6, 20,388) sunset'],
+   ['sight',16.3990,107.5903,'Khai Dinh tomb','(4.5, 17,246) on the combo'],
+   ['sight',16.4713,107.5821,'Royal Antiquities Museum','(4.5, 1,687) rainy-day pick'],
+   ['eat',16.4706,107.5960,'Vị Huế','(4.9, 2,811)'],
+   ['eat',16.4642,107.5927,"Nina's Cafe",'(4.8, 3,605)'],
+   ['drink',16.4606,107.5904,'Imperial Craft Bia','(4.9, 1,485) brewpub'],
+   ['drink',16.4705,107.5974,'Secret Lounge','(4.8, 1,199)'],
+   ['class',16.4604,107.5808,'Moon River Cruises','(4.8, 290) Perfume River boat']
+  ],note:'Minh Mang tomb is about 12 km south of the Imperial City, off this map.'}
+};
+let zk='dn';
+const zt=document.getElementById('ztabs');
+[['dn','Da Nang'],['ha','Hoi An'],['hu','Hue']].forEach(([k,l])=>{const b=document.createElement('button');b.className='tab';b.type='button';b.setAttribute('role','tab');b.id='tab-'+k;b.textContent=l;b.addEventListener('click',()=>{zk=k;drawZoom()});zt.appendChild(b)});
+function drawZoom(){
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.id==='tab-'+zk));
+  const z=Z[zk],svg=document.getElementById('zmap');svg.innerHTML='';
+  const f=proj(z.b,560,420);const [W,H]=f([z.b.s,z.b.e]);svg.setAttribute('viewBox',`0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
+  el('rect',{x:0,y:0,width:W,height:H,fill:'var(--land)'},svg);
+  if(z.coast){el('polygon',{points:pts(f,[[z.b.s-1,z.coast[0][1]]].concat(z.coast,[[z.b.n+1,z.coast[z.coast.length-1][1]],[z.b.n+1,z.b.e+1],[z.b.s-1,z.b.e+1]])),fill:'var(--sea)'},svg);
+    const[x,y]=f([16.045,108.272]);el('text',{x,y,class:'lbl sea','font-size':12},svg).textContent='My Khe beach · East Sea'}
+  if(z.river){el('polyline',{points:pts(f,z.river),fill:'none',stroke:'var(--river)','stroke-width':7,'stroke-linecap':'round'},svg)}
+  // scale 1 km
+  const kmPx=f([z.b.s,z.b.w+1/(111.32*Math.cos(z.b.s*Math.PI/180))])[0];const g=el('g',{transform:`translate(16,${H-16})`},svg);
+  el('rect',{x:0,y:0,width:kmPx,height:4,fill:'var(--ink)'},g);el('text',{x:0,y:-6,class:'lbl','font-size':10},g).textContent='1 km ≈ 12–15 min walk';
+  const list=document.getElementById('zlist');list.innerHTML='';
+  z.pts.forEach(([t,la,ln,nm,nt],i)=>{const[x,y]=f([la,ln]);const n=i+1;
+    const gg=el('g',{tabindex:0,'aria-label':nm},svg);
+    if(t==='avoid'){el('circle',{cx:x,cy:y,r:10,fill:T.avoid,stroke:'var(--paper)','stroke-width':1.5},gg);el('path',{d:`M${x-4},${y-4}L${x+4},${y+4}M${x+4},${y-4}L${x-4},${y+4}`,stroke:'#fff','stroke-width':2},gg)}
+    else{el('circle',{cx:x,cy:y,r:t==='stay'?12:10,fill:T[t],stroke:'var(--paper)','stroke-width':1.5},gg);el('text',{x,y:y+3.6,'text-anchor':'middle','font-size':10,'font-weight':700,fill:'#fff','font-family':'var(--f-mono)'},gg).textContent=n}
+    const li=document.createElement('li');li.innerHTML=`<span class="pin" style="background:${T[t]}">${t==='avoid'?'×':n}</span><span><span class="nm">${nm}</span> <span class="nt">${nt}</span></span>`;list.appendChild(li);
+    const on=()=>li.classList.add('hl'),off=()=>li.classList.remove('hl');gg.addEventListener('mouseenter',on);gg.addEventListener('mouseleave',off);gg.addEventListener('focus',on);gg.addEventListener('blur',off);
+  });
+  if(z.note){const li=document.createElement('li');li.innerHTML=`<span></span><span class="nt">${z.note}</span>`;list.appendChild(li)}
+  const key=document.createElement('li');key.innerHTML=`<span></span><span class="nt">Pin colours: <b style="color:${T.stay}">stay</b> · <b style="color:${T.eat}">eat</b> · <b style="color:${T.drink}">drinks</b> · <b style="color:${T.sight}">see</b> · <b style="color:${T.class}">class, spa or boat</b> · <b style="color:${T.avoid}">skip</b></span>`;list.appendChild(key);
+}
+
+/* ---------- odds ---------- */
+const ODDS=[
+ ['A good beach day in Da Nang',[['22–23 Jan (C)',8],['26–27 Jan (A, B, D)',4]],'At least one dry day with 5+ hours of sun out of the two beach days.'],
+ ['Sea calm enough to wade in',[['22–23 Jan (C)',9],['26–27 Jan (A, B, D)',6]],'Waves under 1.5 m on at least one of the two days. Swim in the pool either way.'],
+ ['Ba Na summit clear in the morning',[['23–24 Jan (C)',5],['26–27 Jan (A, B, D)',7]],'At least one clear morning out of two tries. This is where C gives something up.'],
+ ['Hai Van Pass on a clear day',[['24 Jan (A, B, D)',5],['26 Jan (C)',3]],'Dry with 5+ hours of sun on the drive day.']
+];
+const od=document.getElementById('odds');
+ODDS.forEach(([h,rows,note])=>{const d=document.createElement('div');d.className='odd';
+  d.innerHTML=`<h3>${h}</h3>`+rows.map(([l,n])=>`<div class="yrs"><span>${l}</span><span class="dots" aria-label="${n} of 12 years">${Array.from({length:12},(_,i)=>`<i class="${i<n?'y':''}"></i>`).join('')}</span><span class="num">${n}/12</span></div>`).join('')+`<p class="muted" style="font-size:.84rem">${note}</p>`;od.appendChild(d)});
+
+/* ---------- money ---------- */
+const MC=[['fly','Flights','var(--train)'],['stay','Hotels','var(--lantern)'],['move','Getting around','var(--grab)'],['do','Tickets, classes, tours','#2F7A48'],['eat','Food','#B5651D'],['visa','Visa + SIM','var(--muted)'],['buffer','Left over','var(--dot-off)']];
+document.getElementById('mkey').innerHTML=MC.map(([k,l,c])=>`<span><i style="background:${c};${k==='buffer'?'outline:1px solid var(--muted)':''}"></i>${l}</span>`).join('');
+function renderMoney(){
+  const box=document.getElementById('money');box.innerHTML='';
+  ['C','A','B','D'].forEach(k=>{const m=MONEY[k];const r=document.createElement('div');r.className='mrow'+(k===combo?' on':'');
+    r.innerHTML=`<span class="ml">${k} · ${COMBOS[k].name}</span><span class="bar">${MC.map(([key,l,c])=>`<span title="${l}: ${fmt(m[key])}" style="width:${(m[key]/2000).toFixed(2)}%;background:${c}"></span>`).join('')}</span><span class="num" style="text-align:right">${fmt(m.buffer)} left</span>`;box.appendChild(r)});
+}
+
+/* ---------- copy ---------- */
+document.getElementById('copyphr').addEventListener('click',e=>{const t='Không thịt heo, không thịt bò. Chỉ gà hoặc hải sản.';const b=e.currentTarget;
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{b.textContent='Copied'}).catch(()=>{b.textContent=t});});
+
+try{const s=localStorage.getItem('vn-combo');if(s&&COMBOS[s])combo=s}catch(e){}
+render();drawZoom();
+})();
+</script>
