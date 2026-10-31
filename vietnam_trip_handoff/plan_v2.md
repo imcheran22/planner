@@ -422,6 +422,29 @@ The interactive version is `vietnam_route_finder.html` in this folder. Budgets a
 - **January climate** (published averages; the weather-history API is blocked from this cloud session): Hanoi 14–20 °C with poor air quality reported on Reddit; Ha Long has its driest month with morning mist; Phu Quoc 26–31 °C with about 5 rainy days; Saigon 23–33 °C with about 2 rainy days.
 - **Still not collected:** hotel prices for Hanoi, Ninh Binh, Sapa, Phu Quoc and Saigon (all **caps**), Saigon tours, and live fares for 21–28 Jan. Check these on Booking and the airline sites before booking.
 
+
+## Tour packages compared (31 Oct 2026)
+
+From the four links shared; the short links are blocked in this cloud session, so the same pages were found by web search. Data: `analysis/tour_packages.csv`. $1 ≈ ₹95.26.
+
+| Option | Nights | Flights from India | For two |
+|---|---|---|---:|
+| Your version 1A (Central, Chennai) | 6 | Included | ₹1,79,559 |
+| Veena World Highlights of Vietnam, group (Hanoi 1, Ha Long 1, Hoi An/Da Nang 2) | 4 | Included | ₹2,52,820 ($1,327 pp from Chennai) |
+| Veena World Best of Vietnam, group | 7 | Included (Mumbai) | ₹3,17,978 ($1,669 pp) |
+| Veena World Best of Vietnam, customised | 8 | Not included | ₹2,46,724 + flights |
+| WanderOn 6D backpacking (₹34,999 pp; hostels) | 5 | Not mentioned | ₹69,998 + flights |
+| GT Holidays | 6–8 | Not collected | Price not shown online; ask for a quote |
+| VietNam Amazing Tour, 7 days | 6 | Usually excluded | Page not reachable; similar local tours $468–1,138 pp |
+
+Group packages with flights cost ₹2.5–3.2 lakh for two, so staying under ₹2 lakh means planning it yourselves. The cheap packages use hostels and fixed group days.
+
+## Paying for the trip
+
+- Most of the spending inside Vietnam (hotels paid at the property, tours, food, Grab) is in foreign currency. Regular Indian cards add a forex markup on every such payment; zero-markup cards (Scapia is listed as lifetime-free and zero-markup by several 2026 comparison sites) avoid it. Verify terms on the issuer's site.
+- Flights booked through bank portals and travel sites can earn cashback: for example HDFC lists 5% cashback on Goibibo flight bookings for its credit cards until 31 Dec 2026. A Reddit traveller got ₹16,000 fares "after credit card discounts".
+- Link a card to Grab (Reddit: "worked seamlessly"). Keep cash for street food and lantern boats; some shops add about 3% for card payments.
+
 ## Sources
 
 Traveller data collected 29–30 Oct 2026 (Reddit, YouTube, Google Maps, Booking.com, GetYourGuide, Open-Meteo, X). Web pages opened on 30 Oct 2026:
