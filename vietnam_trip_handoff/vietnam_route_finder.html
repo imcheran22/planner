@@ -900,7 +900,7 @@ const TAGN={see:'See',ride:'Ride',class:'Class',eat:'Eat',shop:'Shop',relax:'Rel
 const fileURL=f=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(f)+'?width=1000';
 const pageURL=f=>'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f);
 const mapsURL=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q+', Vietnam');
-function photoHTML(k,cls){const[f,cap]=PHOTO[k];return`<figure class="ph ${cls||''}"><img src="${fileURL(f)}" alt="${cap}" loading="lazy" referrerpolicy="no-referrer"><figcaption>${cap} · <a href="${pageURL(f)}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption><div class="fb"><b>${cap}</b><span>Photo can't load in this view.</span><a href="${mapsURL(cap)}" target="_blank" rel="noopener">See photos on Google Maps ↗</a></div></figure>`}
+function photoHTML(k,cls){const[f,cap]=PHOTO[k];return`<figure class="ph ${cls||''}"><img src="${fileURL(f)}" alt="${cap}" referrerpolicy="no-referrer"><figcaption>${cap} · <a href="${pageURL(f)}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption><div class="fb"><b>${cap}</b><span>Photo can't load in this view.</span><a href="${mapsURL(cap)}" target="_blank" rel="noopener">See photos on Google Maps ↗</a></div></figure>`}
 function wirePhotos(root){root.querySelectorAll('figure.ph img').forEach(img=>{const fail=()=>img.closest('figure').classList.add('nophoto');img.addEventListener('error',fail);if(img.complete&&img.naturalWidth===0&&img.src)fail()})}
 
 /* ---------- panel ---------- */

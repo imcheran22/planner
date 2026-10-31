@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vietnam, Sri Lanka or Bali</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a decision page. Verdict cards → side-by-side table → day-by-day plans in tabs → budgets → food. Each destination keeps one colour: Vietnam lantern amber, Sri Lanka tea green, Bali ocean blue. */
+:root{
+  --paper:#EEF1EE; --card:#FAFBFA; --ink:#14302C; --muted:#56706B; --rule:#C9D4D0; --soft:#E2E9E5;
+  --vn:#C98A00; --sl:#2F7A48; --ba:#2D6C8C; --accent:#E3A51F; --good:#2F7A48; --bad:#B0402C; --warn:#A86A00;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0C181C; --card:#132329; --ink:#E5EEEA; --muted:#93A8A3; --rule:#283B3E; --soft:#17292F;
+  --vn:#F2B634; --sl:#79C18F; --ba:#6DB2D3; --accent:#F2B634; --good:#79C18F; --bad:#E77B66; --warn:#F2B634; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C181C; --card:#132329; --ink:#E5EEEA; --muted:#93A8A3; --rule:#283B3E; --soft:#17292F;
+  --vn:#F2B634; --sl:#79C18F; --ba:#6DB2D3; --accent:#F2B634; --good:#79C18F; --bad:#E77B66; --warn:#F2B634; color-scheme:dark}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--f-body);margin:0}
+img{max-width:100%}[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:26px 60px;display:grid;gap:48px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.08}
+h1{font-size:clamp(2rem,5.4vw,3.4rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.35rem,3vw,1.9rem);font-weight:800}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0;max-width:70ch}
+a{color:inherit;text-underline-offset:3px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.eyebrow{font:500 .72rem/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+section{display:grid;gap:16px}
+.sec-head{display:grid;gap:6px}
+/* verdict */
+.vcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.vcards{grid-template-columns:minmax(0,1fr)}}
+.vc{background:var(--card);border:1px solid var(--rule);border-top:5px solid var(--c);border-radius:14px;padding:18px;display:grid;gap:10px;align-content:start}
+.vc h3{font-size:1.45rem;font-weight:800}
+.vc .tot{display:flex;gap:16px;flex-wrap:wrap}
+.vc .tot div{display:grid}
+.vc .tot b{font:800 1.3rem/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.vc .tot span{font-size:.74rem;color:var(--muted)}
+.vc ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:.9rem}
+.badge{justify-self:start;font:500 .66rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:4px;background:var(--c);color:#fff}
+.wx{font-size:.86rem;border-left:3px solid var(--c);padding-left:10px}
+.callout{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;display:grid;gap:8px}
+/* table */
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:820px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+thead th{font:500 .7rem/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tbody th{font-weight:700;width:150px}
+td.win{background:color-mix(in srgb,var(--good) 12%,transparent)}
+td.r,th.r{text-align:right}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:baseline}
+/* tabs + days */
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{appearance:none;border:1.5px solid var(--rule);background:var(--card);border-radius:999px;padding:8px 14px;font-weight:700;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.route{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.9rem}
+.route span.s{padding:4px 10px;border-radius:999px;background:var(--soft);font-weight:600}
+.days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.days{grid-template-columns:minmax(0,1fr)}}
+.day{background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden;display:grid;align-content:start}
+.day .bd{padding:14px 16px;display:grid;gap:8px}
+.day .hd{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.day .hd b{font:800 1.15rem/1 var(--f-display)}
+.day .hd span{font-size:.82rem;color:var(--muted)}
+.day .tt{font-weight:700}
+.tl{list-style:none;margin:0;padding:0;display:grid}
+.tl li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;padding:7px 0;border-top:1px dashed var(--rule);font-size:.88rem}
+.tl li:first-child{border-top:0}
+.tl .tm{font:500 .74rem/1.5 var(--f-mono);color:var(--muted)}
+.tl .t2{font-weight:600}
+.tl .d2{display:block;color:var(--muted);font-size:.83rem}
+.planb{font-size:.84rem;background:var(--soft);border-radius:10px;padding:9px 11px}
+figure.ph{margin:0;position:relative;display:grid;aspect-ratio:16/8;background:var(--soft)}
+figure.ph img{width:100%;height:100%;object-fit:cover;grid-area:1/1}
+figure.ph figcaption{grid-area:1/1;align-self:end;justify-self:start;margin:8px;font-size:.7rem;background:rgba(10,20,22,.62);color:#fff;padding:3px 7px;border-radius:5px}
+figure.ph figcaption a{color:#fff}
+figure.ph .fb{display:none;grid-area:1/1;place-content:center;text-align:center;gap:4px;padding:14px;background:repeating-linear-gradient(135deg,var(--soft) 0 14px,var(--card) 14px 28px)}
+figure.ph .fb b{font:800 1.05rem/1.15 var(--f-display)}
+figure.ph .fb span{font-size:.78rem;color:var(--muted)}
+figure.ph.nophoto img,figure.ph.nophoto figcaption{display:none}
+figure.ph.nophoto .fb{display:grid}
+/* budget */
+details{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:14px 18px}
+details summary{cursor:pointer;font-weight:700;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.kind{font:500 .64rem/1 var(--f-mono);text-transform:uppercase;padding:3px 5px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap}
+.kind.cap{border-color:var(--accent)}
+.bars{display:grid;gap:10px}
+.brow{display:grid;grid-template-columns:150px minmax(0,1fr) 100px;gap:12px;align-items:center;font-size:.88rem}
+@media (max-width:600px){.brow{grid-template-columns:minmax(0,1fr) 96px}.brow .bar{grid-column:1/-1;grid-row:2}}
+.bar{display:flex;height:22px;border-radius:5px;overflow:hidden;background:var(--soft)}
+.bar span{height:100%}
+.key{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+.key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.cards{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px;display:grid;gap:8px;align-content:start}
+.card ul{margin:0;padding-left:18px;display:grid;gap:5px;font-size:.9rem}
+.say b{font-family:var(--f-display);font-weight:600}
+footer{font-size:.82rem;color:var(--muted);display:grid;gap:8px;border-top:1px solid var(--rule);padding-top:18px}
+footer ul{margin:0;padding-left:18px;columns:2;column-gap:28px}
+@media (max-width:700px){footer ul{columns:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <span class="eyebrow">Honeymoon for two · 22–28 Jan 2027 · ₹2,00,000 cap · no pork, no beef</span>
+    <h1>Vietnam, Sri Lanka or Bali</h1>
+    <p style="font-size:1.06rem">The same six nights and the same rules (a beach-view room, classes, nights out, a thrill ride, real culture) planned three ways. Vietnam is version 1A from the route finder. Sri Lanka and Bali are new plans built from 2026 web sources.</p>
+  </header>
+
+  <section aria-labelledby="v-h">
+    <h2 id="v-h">The short answer</h2>
+    <div class="vcards" id="vcards"></div>
+    <div class="callout">
+      <p><b>If sunshine on the beach matters most, pick Sri Lanka.</b> Its south coast is in dry season in January, the flight from Chennai is short, the entry permit is free and the food is the easiest without pork or beef. You give up nightlife, a real coaster and some certainty on hotel prices.</p>
+      <p><b>For the trip you described (classes, nightlife, meeting people, a coaster, somewhere new), Vietnam version 1A still edges it,</b> and it has by far the deepest data behind it. <b>Bali is the one to skip in January:</b> it is Bali's wettest month and the budget only just fits.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-h">
+    <div class="sec-head">
+      <h2 id="t-h">Side by side</h2>
+      <p class="muted">Green marks the strongest of the three on each row.</p>
+    </div>
+    <div class="tbl"><table>
+      <thead><tr><th></th><th><span class="dot" style="background:var(--vn)"></span>Vietnam (1A)</th><th><span class="dot" style="background:var(--sl)"></span>Sri Lanka</th><th><span class="dot" style="background:var(--ba)"></span>Bali</th></tr></thead>
+      <tbody id="ctable"></tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="d-h">
+    <div class="sec-head">
+      <h2 id="d-h">Day by day</h2>
+      <p class="muted">Times are a plan, not a timetable. Driving times marked "approx." were not collected; confirm with your driver. Vietnam's full timed plan is in the route finder.</p>
+      <p class="muted" style="font-size:.8rem">Photos are freely licensed Wikimedia Commons images. They show when this file is opened in a normal browser; secure previews block outside images and show a link instead.</p>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="route" id="route"></div>
+    <div class="days" id="days"></div>
+  </section>
+
+  <section aria-labelledby="b-h">
+    <div class="sec-head">
+      <h2 id="b-h">Budget for two</h2>
+      <p class="muted">$1 = ₹95.26 (29 Oct 2026). ₹1 ≈ 169.5 IDR, from the IDR 500,000 visa ≈ ₹2,950. ₹1 ≈ 3.51 LKR, from an undated Clock7 rate. Caps are limits you set where prices were not collected.</p>
+    </div>
+    <div class="key" id="key"></div>
+    <div class="bars" id="bars"></div>
+    <div id="btables" style="display:grid;gap:10px"></div>
+  </section>
+
+  <section aria-labelledby="f-h">
+    <h2 id="f-h">Eating without pork or beef</h2>
+    <div class="cards">
+      <div class="card"><h3 style="color:var(--vn)">Vietnam</h3><ul><li>Hardest of the three: many famous dishes and broths use pork or beef.</li><li>Safe: cơm gà, grilled seafood, phở gà, bún cá.</li><li class="say">Say: <b>Không thịt heo, không thịt bò</b></li></ul></div>
+      <div class="card"><h3 style="color:var(--sl)">Sri Lanka</h3><ul><li>Easiest: rice and curry with chicken or fish is the everyday meal; kottu and hoppers come with chicken or egg.</li><li>Tamil is an official language, so you can ask in Tamil.</li><li class="say">Sinhala: <b>ūru mas epā, harak mas epā</b> (no pork, no beef)</li></ul></div>
+      <div class="card"><h3 style="color:var(--ba)">Bali</h3><ul><li>Bali is mostly Hindu, so pork (babi guling) is everywhere and beef is rare. Indonesia is mostly Muslim, so halal warungs are easy to find.</li><li>Safe: nasi campur ayam, sate ayam, ikan bakar, udang.</li><li class="say">Say: <b>tanpa babi, tanpa sapi</b> (no pork, no beef)</li></ul></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Vietnam figures come from the trip folder's data (Reddit, Google Maps, Booking.com for your dates, 12 years of weather). Sri Lanka and Bali figures come from web searches on 31 Oct 2026; there is no Reddit or Maps scrape for them yet, and most of their hotel prices are caps. Working: compare/budget_sl_bali.py.</span>
+    <ul>
+      <li><a href="https://www.srilankan.com/en-in/flights-to-colombo">SriLankan: Chennai → Colombo fares</a></li>
+      <li><a href="https://happyfares.in/blog/chennai-to-colombo-flights-guide/">HappyFares: Chennai → Colombo guide</a></li>
+      <li><a href="https://blog.wego.com/sri-lanka-free-visa-for-indians-entry-rules-eta-guide-and-travel-tips/">Wego: Sri Lanka free ETA for Indians</a></li>
+      <li><a href="https://www.newsonair.gov.in/sri-lanka-will-introduce-6-month-programme-granting-free-tourist-visas-to-passport-holders-from-39-countries">AIR News: Sri Lanka free visa programme</a></li>
+      <li><a href="https://roughguides.com/sri-lanka/when-to-go/january">Rough Guides: Sri Lanka in January</a></li>
+      <li><a href="https://kimkim.com/c/sri-lanka-in-january-travel-tips-weather-and-more">kimkim: Sri Lanka in January</a></li>
+      <li><a href="https://tuktukrental.com/sri-lanka-entrance-fees/">Sri Lanka entrance fees 2026</a></li>
+      <li><a href="https://borderlyai.com/blog/sri-lanka-itinerary-under-600">Borderly: Ella line after Cyclone Ditwah</a></li>
+      <li><a href="https://12go.asia/en/travel/kandy/ella/">12Go: Kandy → Ella</a></li>
+      <li><a href="https://lakpura.com/products/flying-ravana-mega-zipline-from-ella">Lakpura: Flying Ravana zipline</a></li>
+      <li><a href="https://www.tripadvisor.com.au/ShowTopic-g293961-i8983-k6001498-Cost_of_hiring_a_car_with_a_driver-Sri_Lanka.html">Car with driver rates (forum)</a></li>
+      <li><a href="https://hidmc.com/blog-posts/best-beachfront-hotels-in-galle">Galle beachfront hotels</a></li>
+      <li><a href="https://lankawebsites.com/blog/beaches-surf-coastline/mirissa-travel-guide-whale-watching-nightlife-hidden-spots">Mirissa nightlife and whales</a></li>
+      <li><a href="https://pickyourtrail.com/blog/bali-visa-on-arrival-for-indians">Pickyourtrail: Bali visa on arrival</a></li>
+      <li><a href="https://blog.wego.com/bali-tourist-levy/">Wego: Bali tourist levy</a></li>
+      <li><a href="https://www.goindigo.in/press-releases/indigo-s-new-direct-flight-from-bengaluru-to-bali.html">IndiGo: Bengaluru → Bali nonstop</a></li>
+      <li><a href="https://happyfares.in/blog/bengaluru-bali-direct-flight-2026/">HappyFares: Bengaluru → Bali 2026</a></li>
+      <li><a href="https://www.skyscanner.ae/routes/blr/dps/bengaluru-to-bali-denpasar.html">Skyscanner: Bengaluru → Bali</a></li>
+      <li><a href="https://bali.com/travel-guide/weather-by-month/weather-january/">Bali.com: January weather</a></li>
+      <li><a href="https://www.roughguides.com/articles/bali-weather-january-travel-tips/">Rough Guides: Bali in January</a></li>
+      <li><a href="https://travelguidestip.com/bali-tours/">Bali tour prices 2026</a></li>
+      <li><a href="https://travjoy.com/blog/bali-kecak-fire-dance-bali-everything-you-need-to-know-before-you-go">Travjoy: Kecak prices 2026</a></li>
+      <li><a href="https://www.cookly.me/do/2713-Traditional-Balinese-Cooking-Class-Rasa-Bumi/in/ubud">Cookly: Ubud cooking class</a></li>
+      <li><a href="https://travjoy.com/blog/best-beach-clubs-in-bali-where-to-sunset-swim-and-be-seen">Bali beach clubs 2026</a></li>
+      <li><a href="https://www.baliholidaysecrets.com/bali-travel-costs/">Bali travel costs 2026</a></li>
+    </ul>
+  </footer>
+</div>
+<script>
+(function(){
+const B=__BUDGET__;
+const VN={total:179559,buffer:20441,cats:{fly:45676,stay:47499,move:16249,do:39069,eat:25374,visa:5692}};
+const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const PH={
+ sig:['Sigiriya_Lion_Rock_(43143914520).jpg','Sigiriya Lion Rock'],
+ ella:['Nine_Arch_Bridge_in_Ella.jpg','Train on the Nine Arch Bridge, Ella'],
+ galle:['Galle_Fort,_Sri_Lanka.JPG','Galle Fort'],
+ ubud:['Rice_terraces,_Ubud,_Bali.jpg','Rice terraces near Ubud'],
+ kecak:['Kecak_dancers_cliffside_Uluwatu.jpg','Kecak dance at Uluwatu'],
+ ulu:['Sunset_at_Uluwatu_Temple.jpg','Sunset at Uluwatu Temple'],
+ tanah:['Tanah_Lot_beautiful_sunset.jpg','Tanah Lot at sunset'],
+ semi:['Seminyak_Beach_at_sunset.jpg','Seminyak Beach at sunset']
+};
+const fileURL=f=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(f)+'?width=900';
+const pageURL=f=>'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(f);
+const maps=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+function photo(k){if(!k)return'';const[f,c]=PH[k];return`<figure class="ph"><img src="${fileURL(f)}" alt="${c}" referrerpolicy="no-referrer"><figcaption>${c} · <a href="${pageURL(f)}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption><div class="fb"><b>${c}</b><span>Photo can't load in this view.</span><a href="${maps(c)}" target="_blank" rel="noopener">See photos on Google Maps ↗</a></div></figure>`}
+function wire(root){root.querySelectorAll('figure.ph img').forEach(img=>{const f=()=>img.closest('figure').classList.add('nophoto');img.addEventListener('error',f);if(img.complete&&img.naturalWidth===0)f()})}
+
+/* verdict cards */
+const V=[
+ ['vn','Vietnam','Version 1A: Da Nang first',VN,'Da Nang 24/19 °C; a good beach day on 22–23 Jan in 8 of 12 years. Drizzle on about half of days, heavy rain on 14–17%.',['Cooking + lantern classes, Ba Na alpine coaster, Saturday fire show','Hoi An lanterns, Hue imperial city, An Thuong bars','Deepest data: Reddit, Google reviews, Booking prices for your dates'],'Most fun per rupee'],
+ ['sl','Sri Lanka','Sigiriya → Kandy → Ella → Mirissa → Galle',B.sl,'South and west coasts are in dry season until March; southwest about 29/23 °C. Hill country is cooler.',['Short flight from Chennai, free entry permit','Sigiriya, Temple of the Tooth, Ella train, whale season','Easiest food without pork or beef; Tamil spoken'],'Best January weather'],
+ ['ba','Bali','Seminyak → Ubud → Uluwatu',B.bali,'January is the wettest month: 19–27 rain days depending on the source, mostly heavy afternoon showers. 25–31 °C.',['Best nightlife: beach clubs, Seminyak and Canggu','Ubud cooking class, rice terraces, Kecak fire dance','Waterbom slides for your thrill ride'],'Wrong month']
+];
+document.getElementById('vcards').innerHTML=V.map(([k,n,r,b,wx,pts,badge])=>`<div class="vc" style="--c:var(--${k})"><span class="badge">${badge}</span><h3>${n}</h3><span class="muted" style="font-size:.86rem">${r}</span>
+ <div class="tot"><div><b>${fmt(b.total)}</b><span>total for two</span></div><div><b style="color:${b.buffer<10000?'var(--bad)':'inherit'}">${fmt(b.buffer)}</b><span>left of ₹2 lakh</span></div></div>
+ <p class="wx"><b>Late January:</b> ${wx}</p><ul>${pts.map(p=>`<li>${p}</li>`).join('')}</ul></div>`).join('');
+
+/* comparison table: [row, vn, sl, ba, winner index 0/1/2 or -1] */
+const T=[
+ ['Flight from South India','Chennai → Kuala Lumpur → Da Nang, about 9h 35m, overnight. ₹22,838 pp return (Kayak, not your dates)','Chennai → Colombo, a short hop. ₹21,089 pp return on SriLankan for 22–26 Jan 2027 (cached listing)','Bengaluru → Denpasar nonstop on IndiGo, about 7 h (2026 schedule unclear). ≈ ₹33,900 pp return (snapshot)',1],
+ ['Visa','E-visa, $25 each','Free ETA since 25 May 2026; apply at eta.gov.lk','Visa on arrival IDR 500,000 + levy IDR 150,000 each, plus an arrival card',1],
+ ['January weather','Mild and changeable; drizzle common','Dry season on the south and west coasts','Wettest month of the year',1],
+ ['Beach-view nights','2 (Da Nang, An Thuong)','3 (Mirissa 2, Unawatuna 1)','3 (Seminyak 2, Uluwatu 1)',-1],
+ ['Thrill ride','Ba Na alpine coaster (100,000 VND a ride)','Flying Ravana zipline, 550 m at up to 80 km/h; no coaster found','Waterbom water slides',0],
+ ['Classes','Cooking with basket boat; lantern making','Cooking class (price not collected)','Ubud cooking class, $34–46 each',0],
+ ['Nightlife & meeting people','An Thuong bars, Hoi An bars, Saturday fire show','Mirissa beach bars and parties, usually till about 1 am; quiet elsewhere','Beach clubs (minimum spend IDR 500k–2.5M), Seminyak and Canggu clubs',2],
+ ['Culture','Hue imperial city, Hoi An old town, My Son Cham temples','Sigiriya rock fortress, Temple of the Tooth, Galle Fort','Hindu temples, Kecak fire dance, Ubud',-1],
+ ['No pork, no beef','Hardest: many dishes and broths use pork','Easiest: chicken and fish curries are standard','Medium: pork common, but chicken, seafood and halal food everywhere',1],
+ ['Extras','Lantern boats, basket boats','Whale watching (Dec–Apr), tea country, Yala leopards','Rice terraces, beach clubs, Nusa Penida',-1],
+ ['Getting around','Train, one car day, Grab','A driver all week; long road days','Driver days; heavy traffic',0],
+ ['Total for two',fmt(VN.total),fmt(B.sl.total),fmt(B.bali.total),0],
+ ['Left of ₹2 lakh',fmt(VN.buffer),fmt(B.sl.buffer),fmt(B.bali.buffer),0],
+ ['How solid the numbers are','Deep: 15,000+ Reddit rows, 6,500 Google reviews, Booking prices for your dates, 12 years of weather','Web sources only; hill-country hotels and driver are caps or quotes','Web sources only; all hotels and drivers are caps',0]
+];
+document.getElementById('ctable').innerHTML=T.map(([r,a,b,c,w])=>`<tr><th>${r}</th>${[a,b,c].map((x,i)=>`<td class="${i===w?'win':''}">${x}</td>`).join('')}</tr>`).join('');
+
+/* day plans */
+const PLAN={
+ sl:{name:'Sri Lanka',c:'var(--sl)',route:['Sigiriya 1','Kandy 1','Ella 1','Mirissa 2 (beach view)','Unawatuna 1 (beach view)'],days:[
+  {d:'Fri 22',sl:'Sigiriya',t:'Fly in, drive to the rock country',ph:'sig',s:[['Morning','Chennai → Colombo','₹21,089 pp return on SriLankan (22–26 Jan 2027 listing). Short flight; no overnight needed.'],['Midday','Meet your driver, drive north','Approx. 4 h to Sigiriya; stop at the Dambulla cave temple on the way (fee not collected).'],['17:00','Sunset from Pidurangala rock','The classic view of Sigiriya (fee not collected).'],['19:30','Rice and curry dinner','Chicken or fish curry.']]},
+  {d:'Sat 23',sl:'Kandy',t:'Sigiriya at dawn, Kandy at night',ph:'sig',s:[['06:30','Climb Sigiriya Lion Rock','$20 each at the SAARC rate ($35 for others). Buy online through the official e-services portal to skip queues.'],['11:00','Lunch, then drive to Kandy','Approx. 3 h.'],['17:30','Temple of the Tooth evening ritual','Rs 1,500 each (SAARC).'],['19:00','Kandyan dance show, lake walk','Show price not collected.']]},
+  {d:'Sun 24',sl:'Ella',t:'Tea country and the scenic train',ph:'ella',s:[['08:00','Drive through tea country','Visit a tea factory on the way.'],['Midday','Scenic train to Ella','After Cyclone Ditwah (late 2025) the line to Ella started from Ambewela as of mid-2026, so your driver takes you there first. First class ~$24 (unverified). Check the schedule.'],['16:30','Nine Arch Bridge','Free viewpoint; trains cross it several times a day.'],['18:00','Little Adam\'s Peak or Ella town','Cafés and bars in town.']],alt:'If the train is suspended, drive to Ella and spend the extra time at Ravana Falls.'},
+  {d:'Mon 25',sl:'Mirissa (beach view)',t:'Zipline, then down to the sea',ph:'ella',s:[['08:00','Flying Ravana mega zipline','550 m at up to 80 km/h; $30–40 each. Book at least 5 days ahead.'],['10:00','Ravana Falls',''],['11:30','Cooking class or long lunch','Sri Lankan cooking class (price not collected).'],['14:00','Drive to Mirissa','Approx. 4 h.'],['19:00','Beach dinner, Mirissa bars','Cocktails about $4, beer about $2.50; bars close around 1 am.']]},
+  {d:'Tue 26',sl:'Mirissa (beach view)',t:'Whales, coconut hill, sunset',ph:'galle',s:[['06:30','Whale-watching boat','Dec–Apr is the season; $25–50 each. Take seasickness tablets.'],['12:00','Pool and beach',''],['16:00','Coconut Tree Hill',''],['17:30','Sunset at Parrot Rock','"The classic sunset spot."'],['20:00','Mirissa night out','Zephyr (cocktails from LKR 1,200) and the beach bars; Tuesdays are quieter than weekends.']]},
+  {d:'Wed 27',sl:'Unawatuna (beach view)',t:'Galle Fort and a last beach',ph:'galle',s:[['09:00','Drive to Galle','Approx. 45 min.'],['10:00','Walk Galle Fort','Ramparts, old lanes, boutiques. Be careful buying gems.'],['13:00','Lunch in the Fort',''],['15:00','Unawatuna or Jungle Beach',''],['17:30','Sunset on the Fort walls',''],['19:30','Farewell dinner by the sea','Thaproban Pavilion sits on Unawatuna beach (~$100/night).']]},
+  {d:'Thu 28',sl:'Home',t:'Back to Colombo',ph:null,s:[['Morning','Drive to Colombo airport','Approx. 2.5–3 h on the Southern Expressway.'],['Midday','Fly to Chennai','']]}
+ ]},
+ ba:{name:'Bali',c:'var(--ba)',route:['Seminyak 2 (beach view)','Ubud 3','Uluwatu 1 (cliff view)'],days:[
+  {d:'Thu 21',sl:'On the plane',t:'Fly to Bali',ph:null,s:[['Before you go','Pay the levy and fill in the arrival card online','Levy IDR 150,000 each through the Love Bali portal; All Indonesia Arrival Card mandatory from 16 Jul 2026; e-VOA IDR 500,000 each.'],['Flight','Bengaluru → Denpasar','IndiGo nonstop launched in 2024, about 7 h; sources disagree whether it runs daily in 2026. Otherwise 1 stop via Singapore, Kuala Lumpur or Bangkok.']]},
+  {d:'Fri 22',sl:'Seminyak (beach view)',t:'Beach clubs at sunset',ph:'semi',s:[['Afternoon','Check in, rest',''],['17:00','Sunset at a beach club','Most have no entry fee but a minimum spend: IDR 500,000–2,000,000+ per daybed.'],['21:00','Friday night in Seminyak or Canggu','Seminyak for upscale clubs, Canggu for beach parties.']]},
+  {d:'Sat 23',sl:'Seminyak (beach view)',t:'Water park and Tanah Lot',ph:'tanah',s:[['09:00','Waterbom Bali','Water slides, your thrill ride; $24–38 each.'],['14:00','Rest','January afternoons often bring heavy showers.'],['17:00','Tanah Lot sea temple at sunset','Fee not collected.'],['21:00','Saturday night in Canggu','FINNS and other beach clubs.']]},
+  {d:'Sun 24',sl:'Ubud',t:'Rice terraces and the Monkey Forest',ph:'ubud',s:[['09:00','Drive to Ubud via Tegallalang rice terraces','Jungle swings at the terraces (fees not collected).'],['13:00','Lunch: nasi campur ayam',''],['15:00','Monkey Forest','Keep sunglasses and bags closed.'],['17:00','Ubud market and craft shops','Sarongs, carvings, silver; bargain politely.']]},
+  {d:'Mon 25',sl:'Ubud',t:'Cooking class and spa',ph:'ubud',s:[['08:30','Balinese cooking class with market visit','$34–46 each (IDR 400k–700k at resorts); ask for ayam and ikan, no babi.'],['14:00','Balinese massage','Price not collected.'],['19:00','Dinner and a Balinese dance in Ubud','']]},
+  {d:'Tue 26',sl:'Ubud',t:'Volcano sunrise or water temple',ph:'ubud',s:[['02:00','Optional: Mount Batur sunrise trek','$19–60 each; January rain often ruins the view, so decide the day before.'],['Late morning','Tirta Empul water temple','Fee not collected.'],['Afternoon','Rest, cafés',''],['Evening','Ubud night out','']],alt:'Rain all day: spa, cooking, art galleries and cafés in Ubud.'},
+  {d:'Wed 27',sl:'Uluwatu (cliff view)',t:'Cliffs, Kecak and a seafood farewell',ph:'kecak',s:[['10:00','Drive to Uluwatu',''],['13:00','Cliff-side beach or a pool',''],['16:30','Uluwatu Temple','IDR 50,000–60,000 each.'],['18:00','Kecak fire dance on the cliff','IDR 100,000–175,000 each (2026).'],['19:30','Farewell seafood dinner','']]},
+  {d:'Thu 28',sl:'Home',t:'Fly home',ph:'ulu',s:[['Morning','Airport',''],['','Fly to Bengaluru','']]}
+ ]}
+};
+const tabs=document.getElementById('tabs');let cur='sl';
+Object.entries(PLAN).forEach(([k,p])=>{const b=document.createElement('button');b.type='button';b.className='tab';b.setAttribute('role','tab');b.dataset.k=k;b.innerHTML=`<span class="dot" style="background:${p.c};margin:0"></span>${p.name}`;b.addEventListener('click',()=>{cur=k;renderDays()});tabs.appendChild(b)});
+function renderDays(){const p=PLAN[cur];tabs.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===cur));
+ document.getElementById('route').innerHTML=p.route.map((r,i)=>`${i?'<span class="muted">→</span>':''}<span class="s">${r}</span>`).join('');
+ const box=document.getElementById('days');box.innerHTML=p.days.map(d=>`<article class="day">${photo(d.ph)}<div class="bd"><div class="hd"><b>${d.d} Jan</b><span>Sleep: ${d.sl}</span></div><div class="tt">${d.t}</div><ol class="tl">${d.s.map(([a,b2,c])=>`<li><span class="tm">${a}</span><span><span class="t2">${b2}</span>${c?`<span class="d2">${c}</span>`:''}</span></li>`).join('')}</ol>${d.alt?`<div class="planb"><b>Plan B:</b> ${d.alt}</div>`:''}</div></article>`).join('');
+ wire(box);try{localStorage.setItem('cmp-tab',cur)}catch(e){}}
+try{const s=localStorage.getItem('cmp-tab');if(PLAN[s])cur=s}catch(e){}
+renderDays();
+
+/* budgets */
+const CAT=[['fly','Flights','var(--ba)'],['stay','Hotels','var(--vn)'],['move','Getting around','#7A5FA8'],['do','Tickets, classes, rides','var(--sl)'],['eat','Food & nights out','var(--bad)'],['visa','Visa + SIM','var(--muted)']];
+document.getElementById('key').innerHTML=CAT.map(([k,t,c])=>`<span><i style="background:${c}"></i>${t}</span>`).join('')+'<span><i style="background:var(--soft);outline:1px solid var(--muted)"></i>Left over</span>';
+document.getElementById('bars').innerHTML=[['Vietnam 1A',VN],['Sri Lanka',B.sl],['Bali',B.bali]].map(([n,b])=>`<div class="brow"><span><b>${n}</b></span><span class="bar">${CAT.map(([k,t,c])=>`<span title="${t}: ${fmt(b.cats[k]||0)}" style="width:${((b.cats[k]||0)/2000).toFixed(2)}%;background:${c}"></span>`).join('')}</span><span class="num" style="text-align:right">${fmt(b.buffer)} left</span></div>`).join('');
+document.getElementById('btables').innerHTML=[['Sri Lanka',B.sl],['Bali',B.bali]].map(([n,b])=>`<details><summary><span>${n}: every line</span><span class="num">${fmt(b.total)} · ${fmt(b.buffer)} left</span></summary><div class="tbl" style="margin-top:10px"><table style="min-width:600px"><thead><tr><th>Item</th><th>Basis</th><th>Type</th><th class="r">₹ for two</th></tr></thead><tbody>${b.lines.map(l=>`<tr><td>${l.item}</td><td class="muted">${l.basis}</td><td><span class="kind ${l.kind}">${l.kind}</span></td><td class="r num">${l.inr.toLocaleString('en-IN')}</td></tr>`).join('')}<tr><td><b>Total</b></td><td></td><td></td><td class="r num"><b>${b.total.toLocaleString('en-IN')}</b></td></tr></tbody></table></div></details>`).join('');
+})();
+</script>
+</body>
+</html>
